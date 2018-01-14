@@ -1,9 +1,10 @@
 package org.usfirst.frc.team1515.robot.subsystems;
 
-import org.usfirst.team1515.robot.util.JoystickValues;
-import org.usfirst.team1515.robot.util.MotorModule;
-import org.usfirst.team1515.robot.util.Pair;
-import org.usfirst.team1515.robot.util.Triple;
+import org.usfirst.frc.team1515.robot.Robot;
+import org.usfirst.frc.team1515.robot.Controls;
+import org.usfirst.frc.team1515.robot.commands.JoystickDrive;
+import org.usfirst.frc.team1515.robot.util.MotorModule;
+import org.usfirst.frc.team1515.robot.util.Pair;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -22,6 +23,11 @@ public class DriveTrain extends Subsystem {
 
 	// change sign to change direction
 	final int factor = 1; 
+	
+	public DriveTrain(int[] leftMotorPorts, int[] rightMotorPorts) {
+		mLeftMotors = new MotorModule(leftMotorPorts);
+		mRightMotors = new MotorModule(rightMotorPorts);
+	}
 	
 	public DriveTrain(int[] leftMotorPorts, int[] rightMotorPorts, Pair<Integer> mLeftEncoderPorts, Pair<Integer> mRightEncoderPorts) {
 		mLeftMotors = new MotorModule(leftMotorPorts);
@@ -44,11 +50,11 @@ public class DriveTrain extends Subsystem {
 		setSpeed(0);
 	}
 	
-	public void drive(JoystickValues joystickValues) {
-		double tilt = joystickValues.getX();
-		double forward = joystickValues.getY();
-		double twist = joystickValues.getZ();
-		double throttle = joystickValues.getThrottle();
+	public void drive() {
+		double tilt = Robot.driveStick.getRawAxis(Controls.X_AXIS);
+		double forward = Robot.driveStick.getRawAxis(Controls.Y_AXIS);
+		double twist = Robot.driveStick.getRawAxis(Controls.TWIST);
+		double throttle = Robot.driveStick.getRawAxis(Controls.THROTTLE);
 		
 		tilt *= throttle;
 		forward *= throttle;

@@ -1,4 +1,4 @@
-package org.usfirst.team1515.robot.util;
+package org.usfirst.frc.team1515.robot.util;
 
 import com.ctre.CANTalon;;
 
@@ -6,10 +6,10 @@ public class MotorModule {
 	
 	CANTalon[] talons;
 	
-	public MotorModule(int... motorPorts) {
-		talons = new CANTalon[motorPorts.length];
-		for (int i = 0; i < motorPorts.length; i++) {
-			talons[i] = new CANTalon(motorPorts[i]);
+	public MotorModule(int... talonPorts) {
+		talons = new CANTalon[talonPorts.length];
+		for (int i = 0; i < talonPorts.length; i++) {
+			talons[i] = new CANTalon(talonPorts[i]);
 			talons[i].setSafetyEnabled(false);
 		}
 	}
