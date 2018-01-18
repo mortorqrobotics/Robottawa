@@ -1,28 +1,28 @@
 package org.usfirst.frc.team1515.robot.util;
 
-import com.ctre.CANTalon;;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class MotorModule {
 	
-	CANTalon[] talons;
+	TalonSRX[] talons;
 	
 	public MotorModule(int... talonPorts) {
-		talons = new CANTalon[talonPorts.length];
+		talons = new TalonSRX[talonPorts.length];
 		for (int i = 0; i < talonPorts.length; i++) {
-			talons[i] = new CANTalon(talonPorts[i]);
-			talons[i].setSafetyEnabled(false);
+			talons[i] = new TalonSRX(talonPorts[i]);
 		}
 	}
 	
 	public void setSpeed(double speed) {
-		for (CANTalon talon : talons) {
-			talon.set(speed);
+		for (TalonSRX talon : talons) {
+			talon.set(ControlMode.Velocity, speed);
 		}
 	}
 	
 	public void stop() {
-		for (CANTalon talon : talons) {
-			talon.set(0);
+		for (TalonSRX talon : talons) {
+			talon.set(ControlMode.Velocity, 0);
 		}
 	}
 
