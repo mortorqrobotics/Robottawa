@@ -9,14 +9,11 @@ import org.usfirst.frc.team1515.robot.util.Pair;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class DriveTrain extends Subsystem {
+public class CakeDrive extends Subsystem {
 	
-	private MotorModule mLeftMotors;
-	private MotorModule mRightMotors;
+	private Gearbox leftGearbox;
+	private Gearbox rightGearbox;
 	
-	private Encoder mLeftEncoder;
-	private Encoder mRightEncoder;
-
 	private static final double ROTATE_SIDE = 1.0;
 	private static final double ROTATE_CORNER = 0.25;
 	private static final double DEAD_BAND = 0.15;
@@ -24,26 +21,22 @@ public class DriveTrain extends Subsystem {
 	// change sign to change direction
 	final int factor = 1; 
 	
-	public DriveTrain(int[] leftMotorPorts, int[] rightMotorPorts) {
-		mLeftMotors = new MotorModule(leftMotorPorts);
-		mRightMotors = new MotorModule(rightMotorPorts);
-	}
-	
-	public DriveTrain(int[] leftMotorPorts, int[] rightMotorPorts, Pair<Integer> mLeftEncoderPorts, Pair<Integer> mRightEncoderPorts) {
-		mLeftMotors = new MotorModule(leftMotorPorts);
-		mRightMotors = new MotorModule(rightMotorPorts);
-		mLeftEncoder = new Encoder(mLeftEncoderPorts.first, mLeftEncoderPorts.last);
-		mRightEncoder = new Encoder(mRightEncoderPorts.first, mRightEncoderPorts.last);
+	public CakeDrive(int[] leftTalonPorts, int[] rightTalonPorts, 
+		Pair<Integer> leftEncoderPorts, Pair<Integer> rightEncoderPorts,
+		Pair<Integer> leftSolenoidPorts, Pair<Integer> rightSolenoidPorts
+	) {
+		leftGearbox = new Gearbox(leftTalonPorts, leftEncoderPorts, leftSolenoidPorts);
+//		rightGearbox = new Gearbox(rightTalonPorts, rightEncoderPorts, rightSolenoidPorts);
 	}
 	
 	public void setSpeed(double speed) {
-		mLeftMotors.setSpeed(speed * factor);
-		mRightMotors.setSpeed(-speed * factor);
+		leftGearbox.setSpeed(speed * factor);
+//		rightGearbox.setSpeed(-speed * factor);
 	}
 	
 	public void setSpeeds(double leftSpeed, double rightSpeed) {
-		mLeftMotors.setSpeed(leftSpeed * factor);
-		mRightMotors.setSpeed(-rightSpeed * factor);
+		leftGearbox.setSpeed(leftSpeed * factor);
+//		rightGearbox.setSpeed(-rightSpeed * factor);
 	}
 	
 	public void stop() {
@@ -55,10 +48,13 @@ public class DriveTrain extends Subsystem {
 		double forward = Robot.driveStick.getRawAxis(Controls.Y_AXIS);
 		double twist = Robot.driveStick.getRawAxis(Controls.TWIST);
 		double throttle = Robot.driveStick.getRawAxis(Controls.THROTTLE);
+		double turnSpeed = Robot.driveStick.getRawAxis(Controls.TURN_SPEED);
 		
+		turnSpeed = -(1 + turnSpeed)/2;
+		throttle = (throttle - 1)/2;
 		tilt *= throttle;
 		forward *= throttle;
-		twist *= throttle;
+		twist *= turnSpeed;
 		
 		double y = Math.abs(forward);
 		double x = Math.abs(twist);
@@ -80,6 +76,25 @@ public class DriveTrain extends Subsystem {
 		
 		setSpeeds(left, right);
 		
+	}
+	
+	public int getLeftEncoder() {
+		return leftGearbox.getEncoder();
+	}
+	
+	public int getRightEncoder() {
+//		return rightGearbox.getEncoder();
+		return 1;
+	}
+	
+	public void switchToHighGear() {
+		leftGearbox.switchToHighGear();
+//		rightGearbox.switchToHighGear();
+	}
+
+	public void switchToLowGear() {
+		leftGearbox.switchToLowGear();
+//		rightGearbox.switchToLowGear();
 	}
 
 	@Override

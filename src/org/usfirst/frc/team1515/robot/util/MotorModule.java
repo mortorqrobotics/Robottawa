@@ -16,13 +16,13 @@ public class MotorModule {
 	
 	public void setSpeed(double speed) {
 		for (TalonSRX talon : talons) {
-			talon.set(ControlMode.Velocity, speed);
+			talon.set(ControlMode.PercentOutput, speed);
 		}
 	}
 	
 	public void stop() {
 		for (TalonSRX talon : talons) {
-			talon.set(ControlMode.Velocity, 0);
+			talon.set(ControlMode.PercentOutput, 0);
 		}
 	}
 
