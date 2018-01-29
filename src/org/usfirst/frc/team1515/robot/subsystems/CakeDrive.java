@@ -16,7 +16,9 @@ public class CakeDrive extends Subsystem {
 	
 	private static final double ROTATE_SIDE = 1.0;
 	private static final double ROTATE_CORNER = 0.25;
-	private static final double DEAD_BAND = 0.15;
+
+	private static final double DEADBAND_FORWARD = 0.15;
+	private static final double DEADBAND_TWIST = 0.05;
 
 	// change sign to change direction
 	final int factor = 1; 
@@ -26,15 +28,19 @@ public class CakeDrive extends Subsystem {
 		Pair<Integer> leftSolenoidPorts, Pair<Integer> rightSolenoidPorts
 	) {
 		leftGearbox = new Gearbox(leftTalonPorts, leftEncoderPorts, leftSolenoidPorts);
-//		rightGearbox = new Gearbox(rightTalonPorts, rightEncoderPorts, rightSolenoidPorts);
+		rightGearbox = new Gearbox(rightTalonPorts, rightEncoderPorts, rightSolenoidPorts);
 	}
 	
 	public void setSpeed(double speed) {
+//		leftGearbox.setSpeedPID(speed * factor);
+//		rightGearbox.setSpeedPID(-speed * factor);
 		leftGearbox.setSpeed(speed * factor);
 //		rightGearbox.setSpeed(-speed * factor);
 	}
 	
 	public void setSpeeds(double leftSpeed, double rightSpeed) {
+//		leftGearbox.setSpeedPID(leftSpeed * factor);
+//		rightGearbox.setSpeedPID(-rightSpeed * factor);
 		leftGearbox.setSpeed(leftSpeed * factor);
 //		rightGearbox.setSpeed(-rightSpeed * factor);
 	}
@@ -44,15 +50,16 @@ public class CakeDrive extends Subsystem {
 	}
 	
 	public void drive() {
-		double tilt = Robot.driveStick.getRawAxis(Controls.X_AXIS);
 		double forward = Robot.driveStick.getRawAxis(Controls.Y_AXIS);
 		double twist = Robot.driveStick.getRawAxis(Controls.TWIST);
 		double throttle = Robot.driveStick.getRawAxis(Controls.THROTTLE);
 		double turnSpeed = Robot.driveStick.getRawAxis(Controls.TURN_SPEED);
 		
+		forward = Math.abs(forward) > DEADBAND_FORWARD ? forward : 0;
+		twist = Math.abs(twist) > DEADBAND_TWIST ? twist : 0;
+		
 		turnSpeed = -(1 + turnSpeed)/2;
 		throttle = (throttle - 1)/2;
-		tilt *= throttle;
 		forward *= throttle;
 		twist *= turnSpeed;
 		
@@ -78,23 +85,22 @@ public class CakeDrive extends Subsystem {
 		
 	}
 	
-	public int getLeftEncoder() {
+	public double getLeftEncoder() {
 		return leftGearbox.getEncoder();
 	}
 	
-	public int getRightEncoder() {
-//		return rightGearbox.getEncoder();
-		return 1;
+	public double getRightEncoder() {
+		return rightGearbox.getEncoder();
 	}
 	
 	public void switchToHighGear() {
 		leftGearbox.switchToHighGear();
-//		rightGearbox.switchToHighGear();
+		rightGearbox.switchToHighGear();
 	}
 
 	public void switchToLowGear() {
 		leftGearbox.switchToLowGear();
-//		rightGearbox.switchToLowGear();
+		rightGearbox.switchToLowGear();
 	}
 
 	@Override
