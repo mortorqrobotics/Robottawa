@@ -35,14 +35,14 @@ public class CakeDrive extends Subsystem {
 //		leftGearbox.setSpeedPID(speed * factor);
 //		rightGearbox.setSpeedPID(-speed * factor);
 		leftGearbox.setSpeed(speed * factor);
-//		rightGearbox.setSpeed(-speed * factor);
+		rightGearbox.setSpeed(-speed * factor);
 	}
 	
 	public void setSpeeds(double leftSpeed, double rightSpeed) {
 //		leftGearbox.setSpeedPID(leftSpeed * factor);
 //		rightGearbox.setSpeedPID(-rightSpeed * factor);
 		leftGearbox.setSpeed(leftSpeed * factor);
-//		rightGearbox.setSpeed(-rightSpeed * factor);
+		rightGearbox.setSpeed(-rightSpeed * factor);
 	}
 	
 	public void stop() {
@@ -58,7 +58,7 @@ public class CakeDrive extends Subsystem {
 		forward = Math.abs(forward) > DEADBAND_FORWARD ? forward : 0;
 		twist = Math.abs(twist) > DEADBAND_TWIST ? twist : 0;
 		
-		turnSpeed = -(1 + turnSpeed)/2;
+		turnSpeed = (1 + turnSpeed)/2;
 		throttle = (throttle - 1)/2;
 		forward *= throttle;
 		twist *= turnSpeed;
@@ -80,6 +80,9 @@ public class CakeDrive extends Subsystem {
 			left = right;
 			right = temp;
 		}
+		
+		Robot.smartDashboard.putNumber("left encoeder", leftGearbox.getEncoder());
+		Robot.smartDashboard.putNumber("right encoeder", rightGearbox.getEncoder());
 		
 		setSpeeds(left, right);
 		

@@ -16,7 +16,7 @@ public class Gearbox extends Subsystem {
 	private Encoder encoder;
 	private DoubleSolenoid solenoid;
 
-	final double K_P = 0.0;
+	final double K_P = 0.8;
 	final double K_I = 0.0;
 	final double K_D = 0.0;
 	
@@ -30,11 +30,11 @@ public class Gearbox extends Subsystem {
 	
 	
 	private boolean isHighGear = false;
-	
+
 	public Gearbox(int[] talonPorts, Pair<Integer> encoderPorts, Pair<Integer> solenoidPorts) {
 		motorModule = new MotorModule(talonPorts);
 		encoder = new Encoder(encoderPorts.first, encoderPorts.last);
-		solenoid = new DoubleSolenoid(RobotMap.PCM, solenoidPorts.first, solenoidPorts.last);
+//		solenoid = new DoubleSolenoid(RobotMap.PCM, solenoidPorts.first, solenoidPorts.last);
 
 		encoder.setMaxPeriod(.05);
 		encoder.setMinRate(10);
@@ -48,11 +48,11 @@ public class Gearbox extends Subsystem {
 	
 	public void setSpeedPID(double input) {
 		double measuredSpeed = getEncoder() / (isHighGear ? MAX_ENCODER_RATE_HIGH : MAX_ENCODER_RATE_LOW);
-		error = measuredSpeed;
+		error = input - measuredSpeed;
 		errorSum *= 0.9;
 		double output = ((error * K_P) + (errorSum * K_I) + ((error - lastError) * K_D));
 //		setSpeed(input);
-		setSpeed(input - output);
+		setSpeed(output);
 		lastError = error;
 //		if (Math.abs(output) <= 1 && Math.abs(errorSum) <= 10) {
 			errorSum += error;

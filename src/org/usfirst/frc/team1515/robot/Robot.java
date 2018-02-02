@@ -5,6 +5,7 @@ import org.usfirst.frc.team1515.robot.subsystems.CakeDrive;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -18,6 +19,7 @@ public class Robot extends IterativeRobot {
 	public static Joystick driveStick;
 	public static PowerDistributionPanel pdp;
 	
+	public static DriverStation driverStation;
 	public static SmartDashboard smartDashboard;
 
 	@Override
@@ -27,7 +29,7 @@ public class Robot extends IterativeRobot {
 			RobotMap.LEFT_SOLENOID_PORTS, RobotMap.RIGHT_SOLENOID_PORTS
 		);
 		driveStick = new Joystick(Controls.DRIVE_STICK);
-		pdp = new PowerDistributionPanel();
+		pdp = new PowerDistributionPanel(RobotMap.PDP);
 
 		// OI needs to be initialized last or else commands will not work!
 		oi = new OI();
@@ -61,9 +63,9 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		smartDashboard.putNumber("encoder", driveTrain.getLeftEncoder());
-		smartDashboard.putNumber("current", pdp.getCurrent(0));
-		System.out.println(pdp.getCurrent(0));
+//		smartDashboard.putNumber("encoder", driveTrain.getLeftEncoder());
+//		smartDashboard.putNumber("current", pdp.getCurrent(0));
+//		System.out.println(pdp.getCurrent(0));
 		Scheduler.getInstance().run();
 	}
 
