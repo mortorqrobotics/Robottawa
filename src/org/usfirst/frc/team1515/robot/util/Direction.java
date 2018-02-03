@@ -1,9 +1,8 @@
 package org.usfirst.frc.team1515.robot.util;
 
-public enum StartPosition {
-	
+public enum Direction {
+
 	LEFT,
-	CENTER,
 	RIGHT;
 
 }
