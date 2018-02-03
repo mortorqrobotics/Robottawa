@@ -16,17 +16,21 @@ public class Gearbox extends Subsystem {
 	private Encoder encoder;
 	private DoubleSolenoid solenoid;
 
-	final double K_P = 0.8;
+	final double K_P = 1.5;
 	final double K_I = 0.0;
 	final double K_D = 0.0;
 	
 	final int MAX_ENCODER_RATE_HIGH = 35000; 
 	final int MAX_ENCODER_RATE_LOW = 15000;
 
+	double p_term;
+	double i_term;
+	double d_term;
 	
-	private double error;
-	private double lastError;
-	private double errorSum;
+	double measuredSpeed;
+	double error;
+	double lastError;
+	double output;
 	
 	
 	private boolean isHighGear = false;
@@ -34,7 +38,7 @@ public class Gearbox extends Subsystem {
 	public Gearbox(int[] talonPorts, Pair<Integer> encoderPorts, Pair<Integer> solenoidPorts) {
 		motorModule = new MotorModule(talonPorts);
 		encoder = new Encoder(encoderPorts.first, encoderPorts.last);
-//		solenoid = new DoubleSolenoid(RobotMap.PCM, solenoidPorts.first, solenoidPorts.last);
+		solenoid = new DoubleSolenoid(RobotMap.PCM, solenoidPorts.first, solenoidPorts.last);
 
 		encoder.setMaxPeriod(.05);
 		encoder.setMinRate(10);
@@ -46,25 +50,24 @@ public class Gearbox extends Subsystem {
 		resetPID();
 	}
 	
+	@SuppressWarnings("static-access")
 	public void setSpeedPID(double input) {
-		double measuredSpeed = getEncoder() / (isHighGear ? MAX_ENCODER_RATE_HIGH : MAX_ENCODER_RATE_LOW);
+		measuredSpeed = getEncoder() / (isHighGear ? MAX_ENCODER_RATE_HIGH : MAX_ENCODER_RATE_LOW);
 		error = input - measuredSpeed;
-		errorSum *= 0.9;
-		double output = ((error * K_P) + (errorSum * K_I) + ((error - lastError) * K_D));
-//		setSpeed(input);
+		
+		p_term = error * K_P;
+		
+		i_term += error;
+		i_term *= 0.9;
+		i_term *= K_I;
+		
+		d_term = (error - lastError);
+		d_term *= K_D;
+		
+		output = (p_term + i_term + d_term);
 		setSpeed(output);
 		lastError = error;
-//		if (Math.abs(output) <= 1 && Math.abs(errorSum) <= 10) {
-			errorSum += error;
-//		}
-
-		Robot.smartDashboard.putNumber("requested speed", input);
-		Robot.smartDashboard.putNumber("measured speed", measuredSpeed);
-		Robot.smartDashboard.putNumber("output speed", output);
-		Robot.smartDashboard.putBoolean("isHighGear", isHighGear);
-		Robot.smartDashboard.putNumber("error", error);
-		Robot.smartDashboard.putNumber("errorSum", errorSum);
-
+		
 	}
 	
 	public void setSpeed(double speed) {
@@ -89,10 +92,24 @@ public class Gearbox extends Subsystem {
 	
 	public void resetPID() {
 		error = 0;
-		lastError = 0;
-		errorSum = 0;
+		
+		p_term = 0;
+		i_term = 0;
+		d_term = 0;
 	}
 
+	@SuppressWarnings("static-access")
+	public void printToSmartDashboard(String side) {
+		Robot.smartDashboard.putNumber(side + " measured speed", measuredSpeed);
+		Robot.smartDashboard.putNumber(side + " output speed", output);
+		Robot.smartDashboard.putBoolean(side + " isHighGear", isHighGear);
+		
+		Robot.smartDashboard.putNumber(side + " error", error);
+		Robot.smartDashboard.putNumber(side + " p_term", p_term);
+		Robot.smartDashboard.putNumber(side + " i_term", i_term);
+		Robot.smartDashboard.putNumber(side + " d_term", d_term);
+	}
+	
 	@Override
 	protected void initDefaultCommand() {
 	}

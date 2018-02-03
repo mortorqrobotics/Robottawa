@@ -6,6 +6,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class SwitchAuto extends CommandGroup {
 	
+	final static double SIDE_FORWARD_DISTANCE = 1;
+	final static double SIDE_TURN_DISTANCE = 1;
+	final static double TURN_ANGLE = 1;
+
+	
 	public SwitchAuto(StartPosition startPosition) {
 		switch(startPosition) {
 		case LEFT:
