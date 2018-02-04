@@ -26,7 +26,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		driveTrain = new CakeDrive(RobotMap.LEFT_MOTOR_PORTS, RobotMap.RIGHT_MOTOR_PORTS,
 			RobotMap.LEFT_ENCODER_PORTS, RobotMap.RIGHT_ENCODER_PORTS,
-			RobotMap.LEFT_SOLENOID_PORTS, RobotMap.RIGHT_SOLENOID_PORTS
+			RobotMap.SOLENOID_CHANNELS
 		);
 		driveStick = new Joystick(Controls.DRIVE_STICK);
 		pdp = new PowerDistributionPanel(RobotMap.PDP);

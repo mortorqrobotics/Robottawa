@@ -14,13 +14,12 @@ public class Gearbox extends Subsystem {
 	
 	private MotorModule motorModule;
 	private Encoder encoder;
-	private DoubleSolenoid solenoid;
 
-	final double K_P = 1.5;
-	final double K_I = 0.0;
+	final double K_P = 2.5;
+	final double K_I = 2.0;
 	final double K_D = 0.0;
 	
-	final int MAX_ENCODER_RATE_HIGH = 35000; 
+	final int MAX_ENCODER_RATE_HIGH = 20000; 
 	final int MAX_ENCODER_RATE_LOW = 15000;
 
 	double p_term;
@@ -31,14 +30,11 @@ public class Gearbox extends Subsystem {
 	double error;
 	double lastError;
 	double output;
+	double errorSum;
 	
-	
-	private boolean isHighGear = false;
-
-	public Gearbox(int[] talonPorts, Pair<Integer> encoderPorts, Pair<Integer> solenoidPorts) {
+	public Gearbox(int[] talonPorts, Pair<Integer> encoderPorts) {
 		motorModule = new MotorModule(talonPorts);
 		encoder = new Encoder(encoderPorts.first, encoderPorts.last);
-		solenoid = new DoubleSolenoid(RobotMap.PCM, solenoidPorts.first, solenoidPorts.last);
 
 		encoder.setMaxPeriod(.05);
 		encoder.setMinRate(10);
@@ -52,14 +48,13 @@ public class Gearbox extends Subsystem {
 	
 	@SuppressWarnings("static-access")
 	public void setSpeedPID(double input) {
-		measuredSpeed = getEncoder() / (isHighGear ? MAX_ENCODER_RATE_HIGH : MAX_ENCODER_RATE_LOW);
+		measuredSpeed = getEncoder() / (Robot.driveTrain.isHighGear ? MAX_ENCODER_RATE_HIGH : MAX_ENCODER_RATE_LOW);
 		error = input - measuredSpeed;
 		
 		p_term = error * K_P;
 		
-		i_term += error;
-		i_term *= 0.9;
-		i_term *= K_I;
+		errorSum += error;
+		i_term = errorSum * K_I;
 		
 		d_term = (error - lastError);
 		d_term *= K_D;
@@ -74,20 +69,12 @@ public class Gearbox extends Subsystem {
 		motorModule.setSpeed(speed);
 	}
 	
-	public void switchToHighGear() {
-		System.out.println("high");
-		solenoid.set(Value.kReverse);
-		isHighGear = true;
-	}
-
-	public void switchToLowGear() {
-		System.out.println("low");
-		solenoid.set(Value.kForward);
-		isHighGear = false;
-	}
-	
 	public double getEncoder() {
 		return encoder.getRate();
+	}
+	
+	public void resetEncoder() {
+		encoder.reset();
 	}
 	
 	public void resetPID() {
@@ -102,7 +89,6 @@ public class Gearbox extends Subsystem {
 	public void printToSmartDashboard(String side) {
 		Robot.smartDashboard.putNumber(side + " measured speed", measuredSpeed);
 		Robot.smartDashboard.putNumber(side + " output speed", output);
-		Robot.smartDashboard.putBoolean(side + " isHighGear", isHighGear);
 		
 		Robot.smartDashboard.putNumber(side + " error", error);
 		Robot.smartDashboard.putNumber(side + " p_term", p_term);

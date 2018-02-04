@@ -6,6 +6,8 @@ import org.usfirst.frc.team1515.robot.commands.JoystickDrive;
 import org.usfirst.frc.team1515.robot.util.MotorModule;
 import org.usfirst.frc.team1515.robot.util.Pair;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -13,6 +15,8 @@ public class CakeDrive extends Subsystem {
 	
 	private Gearbox leftGearbox;
 	private Gearbox rightGearbox;
+	
+	private DoubleSolenoid solenoid;
 	
 	private static final double ROTATE_SIDE = 1.0;
 	private static final double ROTATE_CORNER = 0.25;
@@ -22,29 +26,39 @@ public class CakeDrive extends Subsystem {
 
 	// change sign to change direction
 	final int factor = 1; 
+
+	public boolean isHighGear = true;
 	
 	public CakeDrive(int[] leftTalonPorts, int[] rightTalonPorts, 
 		Pair<Integer> leftEncoderPorts, Pair<Integer> rightEncoderPorts,
-		Pair<Integer> leftSolenoidPorts, Pair<Integer> rightSolenoidPorts
+		Pair<Integer> solenoidChannel 
 	) {
-		leftGearbox = new Gearbox(leftTalonPorts, leftEncoderPorts, leftSolenoidPorts);
-		rightGearbox = new Gearbox(rightTalonPorts, rightEncoderPorts, rightSolenoidPorts);
+		leftGearbox = new Gearbox(leftTalonPorts, leftEncoderPorts);
+		rightGearbox = new Gearbox(rightTalonPorts, rightEncoderPorts);
+		
+		solenoid = new DoubleSolenoid(solenoidChannel.first, solenoidChannel.last);
 	}
 	
 	public void setSpeed(double speed) {
-//		leftGearbox.setSpeedPID(speed * factor);
-//		rightGearbox.setSpeedPID(-speed * factor);
 		leftGearbox.setSpeed(speed * factor);
 		rightGearbox.setSpeed(-speed * factor);
 	}
 	
+	public void setSpeedPID(double speed) {
+		leftGearbox.setSpeedPID(speed * factor);
+		rightGearbox.setSpeedPID(-speed * factor);
+	}
+	
 	public void setSpeeds(double leftSpeed, double rightSpeed) {
-//		leftGearbox.setSpeedPID(leftSpeed * factor);
-//		rightGearbox.setSpeedPID(-rightSpeed * factor);
 		leftGearbox.setSpeed(leftSpeed * factor);
 		rightGearbox.setSpeed(-rightSpeed * factor);
 	}
-	
+
+	public void setSpeedsPID(double leftSpeed, double rightSpeed) {
+		leftGearbox.setSpeedPID(leftSpeed * factor);
+		rightGearbox.setSpeedPID(-rightSpeed * factor);
+	}
+
 	public void stop() {
 		setSpeed(0);
 	}
@@ -84,15 +98,11 @@ public class CakeDrive extends Subsystem {
 		Robot.smartDashboard.putNumber("left encoder", leftGearbox.getEncoder());
 		Robot.smartDashboard.putNumber("right encoder", rightGearbox.getEncoder());
 		
-//		setSpeeds(0.2, 0.2);
-		leftGearbox.setSpeed(0.5);
-//		rightGearbox.setSpeedPID(0.5);
-
+		setSpeedPID(0.5);
 		
 		leftGearbox.printToSmartDashboard("left");
-//		rightGearbox.printToSmartDashboard("right");
 
-		
+		rightGearbox.printToSmartDashboard("right");
 	}
 	
 	public double getLeftEncoder() {
@@ -103,14 +113,19 @@ public class CakeDrive extends Subsystem {
 		return rightGearbox.getEncoder();
 	}
 	
+	public void resetEncoders() {
+		leftGearbox.resetEncoder();
+		rightGearbox.resetEncoder();
+	}
+	
 	public void switchToHighGear() {
-		leftGearbox.switchToHighGear();
-		rightGearbox.switchToHighGear();
+		solenoid.set(Value.kForward);
+		isHighGear = true;
 	}
 
 	public void switchToLowGear() {
-		leftGearbox.switchToLowGear();
-		rightGearbox.switchToLowGear();
+		solenoid.set(Value.kReverse);
+		isHighGear = false;
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1515.robot.commands.movement;
 
+import org.usfirst.frc.team1515.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveForward extends Command {
@@ -20,12 +22,12 @@ public class DriveForward extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-		Robot.driveTrain.setSpeed(speed):
+		Robot.driveTrain.setSpeed(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return ticks == Math.abs((Robot.driveTrain.getRightEncoders + Robot.driveTrain.getRightEncoders()) / 2);
+        return ticks == Math.abs((Robot.driveTrain.getLeftEncoder() + Robot.driveTrain.getRightEncoder()) / 2);
     }
 
     // Called once after isFinished returns true
