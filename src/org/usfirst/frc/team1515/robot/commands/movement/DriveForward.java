@@ -22,12 +22,20 @@ public class DriveForward extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+<<<<<<< HEAD
 		Robot.driveTrain.setSpeed(speed);
+=======
+		Robot.driveTrain.setSpeed(speed):
+>>>>>>> 68131a2e5a39c53638176a60ab8e36b891598f78
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+<<<<<<< HEAD
         return ticks == Math.abs((Robot.driveTrain.getLeftEncoder() + Robot.driveTrain.getRightEncoder()) / 2);
+=======
+        return ticks == Math.abs((Robot.driveTrain.getRightEncoders + Robot.driveTrain.getRightEncoders()) / 2);
+>>>>>>> 68131a2e5a39c53638176a60ab8e36b891598f78
     }
 
     // Called once after isFinished returns true

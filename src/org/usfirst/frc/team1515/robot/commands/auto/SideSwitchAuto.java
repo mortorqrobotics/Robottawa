@@ -10,7 +10,7 @@ public class SideSwitchAuto extends CommandGroup {
 
 	static final int FORWARD_DIST_TICKS = 100;
 	static final int SIDE_DIST_TICKS = 100;
-
+	
 	static final double FORWARD_DIST_SPEED = 0.5;
 	static final double SIDE_DIST_SPEED = 0.5;
 

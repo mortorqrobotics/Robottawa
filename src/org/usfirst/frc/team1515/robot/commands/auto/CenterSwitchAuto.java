@@ -18,6 +18,6 @@ public class CenterSwitchAuto extends CommandGroup {
 //		addSequential(DriveForward(FORWARD_DIST_TICKS, FORWARD_DIST_SPEED));
 //		addSequential(TurnAngle(platePosition == Direction.LEFT ? ANGLE : -ANGLE));
 //		addSequential(DriveForward(SIDE_DIST_TICKS, SIDE_DIST_SPEED));
-    }
+	}
 
 }
