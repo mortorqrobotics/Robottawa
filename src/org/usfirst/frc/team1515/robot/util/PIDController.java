@@ -58,8 +58,9 @@ public class PIDController {
 	
 	@SuppressWarnings("static-access")
 	public void printToSmartDashboard(String identifier) {
-		Robot.smartDashboard.putNumber(identifier + " measured speed", actual);
-		Robot.smartDashboard.putNumber(identifier + " output speed", output);
+		Robot.smartDashboard.putNumber(identifier + " target", target);
+		Robot.smartDashboard.putNumber(identifier + " measured", actual);
+		Robot.smartDashboard.putNumber(identifier + " output", output);
 		
 		Robot.smartDashboard.putNumber(identifier + " error", error);
 		Robot.smartDashboard.putNumber(identifier + " p_term", p_term);

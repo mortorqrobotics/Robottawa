@@ -94,27 +94,28 @@ public class CakeDrive extends Subsystem {
 			left = right;
 			right = temp;
 		}
-		
-		Robot.smartDashboard.putNumber("left encoder rate", leftGearbox.getEncoderRate());
-		Robot.smartDashboard.putNumber("right encoder rate", rightGearbox.getEncoderRate());
-
-		Robot.smartDashboard.putNumber("left encoder ticks", leftGearbox.getEncoderTicks());
-		Robot.smartDashboard.putNumber("right encoder ticks", rightGearbox.getEncoderTicks());
-	
-		setSpeedsPID(left, right);
+//		setSpeedsPID(left, right);
+		setSpeeds(left, right);
 		
 		leftGearbox.printToSmartDashboard("left");
 		rightGearbox.printToSmartDashboard("right");
 	}
 	
-	public double getLeftEncoder() {
+	public double getLeftEncoderRate() {
 		return leftGearbox.getEncoderRate();
 	}
 	
-	public double getRightEncoder() {
+	public double getRightEncoderRate() {
 		return rightGearbox.getEncoderRate();
 	}
+
+	public double getLeftEncoderTicks() {
+		return leftGearbox.getEncoderTicks();
+	}
 	
+	public double getRightEncoderTicks() {
+		return rightGearbox.getEncoderTicks();
+	}
 	public void resetEncoders() {
 		leftGearbox.resetEncoder();
 		rightGearbox.resetEncoder();
