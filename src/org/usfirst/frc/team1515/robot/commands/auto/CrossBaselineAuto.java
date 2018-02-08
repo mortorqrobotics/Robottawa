@@ -11,6 +11,5 @@ public class CrossBaselineAuto extends CommandGroup {
 
 	public CrossBaselineAuto() {
 		addSequential(new DriveForward(TICKS, SPEED));
-		addSequential(new DriveForward(TICKS, SPEED);
 	}
 }

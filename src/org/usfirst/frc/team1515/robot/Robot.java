@@ -1,15 +1,18 @@
 
 package org.usfirst.frc.team1515.robot;
 
+import org.usfirst.frc.team1515.robot.commands.movement.TurnAngle;
 import org.usfirst.frc.team1515.robot.subsystems.CakeDrive;
 
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
@@ -18,6 +21,7 @@ public class Robot extends IterativeRobot {
 	public static CakeDrive driveTrain;
 	public static Joystick driveStick;
 	public static PowerDistributionPanel pdp;
+	public static Gyro gyro;
 	
 	public static DriverStation driverStation;
 	public static SmartDashboard smartDashboard;
@@ -30,6 +34,7 @@ public class Robot extends IterativeRobot {
 		);
 		driveStick = new Joystick(Controls.DRIVE_STICK);
 		pdp = new PowerDistributionPanel(RobotMap.PDP);
+		gyro = new ADXRS450_Gyro();
 
 		// OI needs to be initialized last or else commands will not work!
 		oi = new OI();
@@ -63,9 +68,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
-//		smartDashboard.putNumber("encoder", driveTrain.getLeftEncoder());
-//		smartDashboard.putNumber("current", pdp.getCurrent(0));
-//		System.out.println(pdp.getCurrent(0));
 		Scheduler.getInstance().run();
 	}
 

@@ -27,7 +27,7 @@ public class CakeDrive extends Subsystem {
 	// change sign to change direction
 	final int factor = 1; 
 
-	public boolean isHighGear = true;
+	public boolean isHighGear = false;
 	
 	public CakeDrive(int[] leftTalonPorts, int[] rightTalonPorts, 
 		Pair<Integer> leftEncoderPorts, Pair<Integer> rightEncoderPorts,
@@ -95,22 +95,24 @@ public class CakeDrive extends Subsystem {
 			right = temp;
 		}
 		
-		Robot.smartDashboard.putNumber("left encoder", leftGearbox.getEncoder());
-		Robot.smartDashboard.putNumber("right encoder", rightGearbox.getEncoder());
-		
-		setSpeedPID(0.5);
+		Robot.smartDashboard.putNumber("left encoder rate", leftGearbox.getEncoderRate());
+		Robot.smartDashboard.putNumber("right encoder rate", rightGearbox.getEncoderRate());
+
+		Robot.smartDashboard.putNumber("left encoder ticks", leftGearbox.getEncoderTicks());
+		Robot.smartDashboard.putNumber("right encoder ticks", rightGearbox.getEncoderTicks());
+	
+		setSpeedsPID(left, right);
 		
 		leftGearbox.printToSmartDashboard("left");
-
 		rightGearbox.printToSmartDashboard("right");
 	}
 	
 	public double getLeftEncoder() {
-		return leftGearbox.getEncoder();
+		return leftGearbox.getEncoderRate();
 	}
 	
 	public double getRightEncoder() {
-		return rightGearbox.getEncoder();
+		return rightGearbox.getEncoderRate();
 	}
 	
 	public void resetEncoders() {
