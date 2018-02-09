@@ -5,13 +5,15 @@ import org.usfirst.frc.team1515.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveForward extends Command {
+	
+	private static final double THRESHOLD = 2;
 
-	private int ticks;
+	private double dist; // inches
 	private double speed;
 
-    public DriveForward(int ticks, double speed) {
+    public DriveForward(double dist, double speed) {
         requires(Robot.driveTrain);
-		this.ticks = ticks;
+		this.dist = dist;
 		this.speed = speed;
     }
 
@@ -24,7 +26,8 @@ public class DriveForward extends Command {
     }
 
     protected boolean isFinished() {
-        return ticks == Math.abs((Robot.driveTrain.getLeftEncoderTicks() + Robot.driveTrain.getRightEncoderTicks()) / 2);
+    	return dist > Robot.driveTrain.getDistance() - THRESHOLD
+    			&& dist < Robot.driveTrain.getDistance()  + THRESHOLD;
     }
 
     protected void end() {

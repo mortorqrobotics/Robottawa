@@ -25,7 +25,7 @@ public class CakeDrive extends Subsystem {
 	private static final double DEADBAND_TWIST = 0.05;
 
 	// change sign to change direction
-	final int factor = 1; 
+	final int factor = -1; 
 
 	public boolean isHighGear = false;
 	
@@ -94,28 +94,17 @@ public class CakeDrive extends Subsystem {
 			left = right;
 			right = temp;
 		}
-//		setSpeedsPID(left, right);
-		setSpeeds(left, right);
+		setSpeedsPID(left, right);
+//		setSpeeds(left, right);
 		
 		leftGearbox.printToSmartDashboard("left");
 		rightGearbox.printToSmartDashboard("right");
 	}
-	
-	public double getLeftEncoderRate() {
-		return leftGearbox.getEncoderRate();
+		
+	public double getDistance() {
+		return (Math.abs(leftGearbox.getDistance()) + Math.abs(rightGearbox.getDistance())) / 2;
 	}
 	
-	public double getRightEncoderRate() {
-		return rightGearbox.getEncoderRate();
-	}
-
-	public double getLeftEncoderTicks() {
-		return leftGearbox.getEncoderTicks();
-	}
-	
-	public double getRightEncoderTicks() {
-		return rightGearbox.getEncoderTicks();
-	}
 	public void resetEncoders() {
 		leftGearbox.resetEncoder();
 		rightGearbox.resetEncoder();
