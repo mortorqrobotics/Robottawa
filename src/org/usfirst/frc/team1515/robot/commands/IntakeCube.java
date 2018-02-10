@@ -11,7 +11,7 @@ public class IntakeCube extends Command {
     }
 
     protected void initialize() {
-    	Robot.intake.open();
+    	Robot.intake.close();
     }
 
     protected void execute() {
@@ -23,7 +23,6 @@ public class IntakeCube extends Command {
     }
 
     protected void end() {
-    	Robot.intake.close();
     	Robot.intake.stop();
     }
 
