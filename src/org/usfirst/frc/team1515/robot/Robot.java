@@ -44,7 +44,8 @@ public class Robot extends IterativeRobot {
 			RobotMap.DRIVE_SOLENOID_CHANNELS
 		);
 		driveStick = new Joystick(Controls.DRIVE_STICK);
-		pdp = new PowerDistributionPanel(RobotMap.PDP);
+		manipStick = new Joystick(Controls.MANIPULATOR_STICK);
+//		pdp = new PowerDistributionPanel(RobotMap.PDP);
 		gyro = new ADXRS450_Gyro();
 		elevator = new Elevator(RobotMap.ELEVATOR_MOTOR_PORTS);
 		intake = new Intake(RobotMap.INTAKE_MOTOR_PORTS, RobotMap.INTAKE_SOLENOID_CHANNELS, RobotMap.LIMIT_SWITCH_PORT);

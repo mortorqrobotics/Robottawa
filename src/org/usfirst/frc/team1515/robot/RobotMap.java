@@ -16,7 +16,7 @@ public class RobotMap {
 	public static final Pair<Integer> DRIVE_SOLENOID_CHANNELS = new Pair<Integer>(0, 1);
 	public static final Pair<Integer> INTAKE_SOLENOID_CHANNELS = new Pair<Integer>(2, 3);
 	
-	public static final int LIMIT_SWITCH_PORT = 1;
+	public static final int LIMIT_SWITCH_PORT = 4;
 	
 	public static final int PDP = 10;
 	public static final int PCM = 0;
