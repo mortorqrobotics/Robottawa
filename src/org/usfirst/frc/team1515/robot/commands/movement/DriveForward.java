@@ -5,7 +5,7 @@ import org.usfirst.frc.team1515.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveForward extends Command {
-	
+
 	private static final double THRESHOLD = 2;
 
 	private double dist; // inches
@@ -25,10 +25,10 @@ public class DriveForward extends Command {
 		Robot.driveTrain.setSpeed(speed);
     }
 
-    protected boolean isFinished() {
-    	return dist > Robot.driveTrain.getDistance() - THRESHOLD
-    			&& dist < Robot.driveTrain.getDistance()  + THRESHOLD;
-    }
+	protected boolean isFinished() {
+		return dist >= Robot.driveTrain.getDistance() - THRESHOLD
+			&& dist <= Robot.driveTrain.getDistance()  + THRESHOLD;
+	}
 
     protected void end() {
 		Robot.driveTrain.stop();

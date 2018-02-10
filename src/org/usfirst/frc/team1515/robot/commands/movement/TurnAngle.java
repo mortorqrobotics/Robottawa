@@ -5,10 +5,10 @@ import org.usfirst.frc.team1515.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class TurnAngle extends Command {
-	
+
 	static final double SPEED = 0.17;
 	static final double THRESHOLD = 1;
-	
+
 	double target;
 	double startAngle;
 
