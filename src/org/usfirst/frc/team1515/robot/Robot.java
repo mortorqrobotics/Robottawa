@@ -5,6 +5,7 @@ import org.usfirst.frc.team1515.robot.commands.auto.CenterSwitchAuto;
 import org.usfirst.frc.team1515.robot.commands.auto.CrossBaselineAuto;
 import org.usfirst.frc.team1515.robot.commands.auto.SideSwitchAuto;
 import org.usfirst.frc.team1515.robot.commands.movement.TurnAnglePID;
+import org.usfirst.frc.team1515.robot.RobotInfo;
 import org.usfirst.frc.team1515.robot.subsystems.CakeDrive;
 import org.usfirst.frc.team1515.robot.subsystems.Elevator;
 import org.usfirst.frc.team1515.robot.subsystems.Intake;
@@ -32,6 +33,7 @@ public class Robot extends IterativeRobot {
 	public static Joystick manipStick;
 	public static PowerDistributionPanel pdp;
 	public static Gyro gyro;
+	public static RobotInfo info;
 	public static Elevator elevator;
 	public static Intake intake;
 	
@@ -48,6 +50,7 @@ public class Robot extends IterativeRobot {
 		driveStick = new Joystick(Controls.DRIVE_STICK);
 		pdp = new PowerDistributionPanel(RobotMap.PDP);
 		gyro = new ADXRS450_Gyro();
+		info = new RobotInfo(RobotMap.startPosition.getX(), RobotMap.startPosition.getY(), RobotMap.startPosition.getAngle());
 		elevator = new Elevator(RobotMap.ELEVATOR_MOTOR_PORTS);
 		intake = new Intake(RobotMap.INTAKE_MOTOR_PORTS, RobotMap.INTAKE_SOLENOID_CHANNELS, RobotMap.LIMIT_SWITCH_PORT);
 		

@@ -19,7 +19,7 @@ public class Gearbox extends Subsystem {
 	private PIDController pidController;
 
 	final double K_P = 1.0;
-	final double K_I = 0.001;
+	final double K_I = 0.2;
 	final double K_D = 0.0;
 	
 	final int MAX_ENCODER_RATE_HIGH = 20000; 
@@ -31,12 +31,12 @@ public class Gearbox extends Subsystem {
 
 		encoder.setMaxPeriod(.05);
 		encoder.setMinRate(10);
-		encoder.setDistancePerPulse(RobotMap.WHEEL_CIRCUMFERENCE / RobotMap.TICKS_PER_REV);
+		encoder.setDistancePerPulse(1);
 		encoder.setSamplesToAverage(10);
 //		encoder.setReverseDirection(true);
 		encoder.reset();
 		
-		pidController = new PIDController(K_P, K_I, K_D, 0.9);
+		pidController = new PIDController(K_P, K_I, K_D);
 	}
 
 	public void setSpeedPID(double target) {
@@ -59,10 +59,6 @@ public class Gearbox extends Subsystem {
 	
 	public int getEncoderTicks() {
 		return encoder.get();
-	}
-	
-	public double getDistance() {
-		return encoder.getDistance();
 	}
 	
 	public void resetEncoder() {

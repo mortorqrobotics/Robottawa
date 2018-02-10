@@ -7,7 +7,6 @@ public class PIDController {
 	private final double K_P;
 	private final double K_I;
 	private final double K_D;
-	private final double DIMINISHER;
 	
 	double p_term;
 	double i_term;
@@ -21,36 +20,19 @@ public class PIDController {
 	double actual;
 	double output;
 	
-	long time;
-	long lastTime;
-	long timeDifference;
-	
 	public PIDController(double K_P, double K_I, double K_D) {
 		this.K_P = K_P;
 		this.K_I = K_I;
 		this.K_D = K_D;
-		DIMINISHER = 1;
-		timeDifference = 20;
-	}
-	
-	public PIDController(double K_P, double K_I, double K_D, double DIMINISHER) {
-		this.K_P = K_P;
-		this.K_I = K_I;
-		this.K_D = K_D;
-		this.DIMINISHER = DIMINISHER;
-		timeDifference = 20;
 	}
 	
 	public double getOutput(double target, double actual) {
 		this.target = target;
 		this.actual = actual;
-		time = System.currentTimeMillis();
 
 		error = target - actual;
-		timeDifference = time - lastTime;
 		
 		p_term = error * K_P;
-		
 		errorSum += error /** timeDifference * DIMINISHER*/;
 		i_term = errorSum * K_I;
 		
@@ -58,7 +40,6 @@ public class PIDController {
 		d_term *= K_D;
 		
 		lastError = error;
-		lastTime = time;
 		output = p_term + i_term + d_term;
 		
 		return output;
@@ -72,10 +53,6 @@ public class PIDController {
 		 error = 0;
 		 lastError = 0;
 		 errorSum = 0;
-		 
-		 time = System.currentTimeMillis();
-		 lastTime = System.currentTimeMillis();
-		 timeDifference = 20;
 	}
 	
 	@SuppressWarnings("static-access")
@@ -83,7 +60,6 @@ public class PIDController {
 		Robot.smartDashboard.putNumber(identifier + " target", target);
 		Robot.smartDashboard.putNumber(identifier + " measured", actual);
 		Robot.smartDashboard.putNumber(identifier + " output", output);
-		Robot.smartDashboard.putNumber(identifier + " timeDifference", timeDifference);
 		
 		Robot.smartDashboard.putNumber(identifier + " error", error);
 		Robot.smartDashboard.putNumber(identifier + " p_term", p_term);
