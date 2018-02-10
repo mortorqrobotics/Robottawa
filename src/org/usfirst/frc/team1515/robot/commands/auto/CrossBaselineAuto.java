@@ -20,12 +20,10 @@ public class CrossBaselineAuto extends CommandGroup {
 	}
 
 	private void crossBaselineLeft() {
-		addSequential(new MoveCommandGroup(FieldMap.FIRST_LEFT_BASELINE));
-		addSequential(new MoveCommandGroup(FieldMap.SECOND_LEFT_BASELINE));
+		addSequential(new MoveCommandGroup(FieldMap.FIRST_LEFT_SWITCH));
 	}
 
 	private	void crossBaselineRight() {
-		addSequential(new MoveCommandGroup(FieldMap.FIRST_RIGHT_BASELINE));
-		addSequential(new MoveCommandGroup(FieldMap.SECOND_RIGHT_BASELINE));
+		addSequential(new MoveCommandGroup(FieldMap.FIRST_RIGHT_SWITCH));
 	}
 }

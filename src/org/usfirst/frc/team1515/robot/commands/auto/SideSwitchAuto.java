@@ -22,12 +22,12 @@ public class SideSwitchAuto extends CommandGroup {
     }
 
 	private void goToLeftSwitch() {
-		addSequential(new MoveCommandGroup(FieldMap.FIRST_LEFT_SWITCH));
-		addSequential(new MoveCommandGroup(FieldMap.SECOND_LEFT_SWITCH));
+		addSequential(new MoveCommandGroup(FieldMap.FIRST_LEFT_SWITCH, false));
+		addSequential(new MoveCommandGroup(FieldMap.SECOND_LEFT_SWITCH, false));
 	}
 
 	private void goToRightSwitch() {
-		addSequential(new MoveCommandGroup(FieldMap.FIRST_RIGHT_SWITCH));
-		addSequential(new MoveCommandGroup(FieldMap.SECOND_RIGHT_SWITCH));
+		addSequential(new MoveCommandGroup(FieldMap.FIRST_RIGHT_SWITCH, false));
+		addSequential(new MoveCommandGroup(FieldMap.SECOND_RIGHT_SWITCH, false));
 	}
 }

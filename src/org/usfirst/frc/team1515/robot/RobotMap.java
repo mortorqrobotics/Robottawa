@@ -14,13 +14,12 @@ public class RobotMap {
 	public static final Pair<Integer> RIGHT_ENCODER_PORTS = new Pair<Integer>(2, 3);
 
 	public static final Pair<Integer> DRIVE_SOLENOID_CHANNELS = new Pair<Integer>(0, 1);
-	
 	public static final Pair<Integer> INTAKE_SOLENOID_CHANNELS = new Pair<Integer>(2, 3);
 	
 	public static final int LIMIT_SWITCH_PORT = 1;
 	
-	public static final int PDP = 11;
-	public static final int PCM = 10;
+	public static final int PDP = 10;
+	public static final int PCM = 0;
 	
 	public static final int TICKS_PER_REV = 2880;
 	public static final double WHEEL_CIRCUMFERENCE = Math.PI * 6; //inches

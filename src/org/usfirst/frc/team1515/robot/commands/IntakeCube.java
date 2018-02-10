@@ -29,5 +29,6 @@ public class IntakeCube extends Command {
 
     protected void interrupted() {
     	end();
+	
     }
 }
