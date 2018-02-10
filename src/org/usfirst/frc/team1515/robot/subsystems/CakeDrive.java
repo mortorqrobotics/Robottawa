@@ -25,7 +25,7 @@ public class CakeDrive extends Subsystem {
 	private static final double DEADBAND_TWIST = 0.05;
 
 	// change sign to change direction
-	final int factor = -1; 
+	final int factor = 1; 
 
 	public boolean isHighGear = false;
 	
@@ -94,8 +94,8 @@ public class CakeDrive extends Subsystem {
 			left = right;
 			right = temp;
 		}
-		setSpeedsPID(left, right);
-//		setSpeeds(left, right);
+//		setSpeedsPID(left, right);
+		setSpeeds(left, right);
 		
 		leftGearbox.printToSmartDashboard("left");
 		rightGearbox.printToSmartDashboard("right");

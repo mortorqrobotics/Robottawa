@@ -1,5 +1,9 @@
 package org.usfirst.frc.team1515.robot;
 
+import org.usfirst.frc.team1515.robot.commands.IntakeCube;
+import org.usfirst.frc.team1515.robot.commands.LowerElevator;
+import org.usfirst.frc.team1515.robot.commands.PurgeCube;
+import org.usfirst.frc.team1515.robot.commands.RaiseElevator;
 import org.usfirst.frc.team1515.robot.commands.ShiftToHighGear;
 import org.usfirst.frc.team1515.robot.commands.ShiftToLowGear;
 import org.usfirst.frc.team1515.robot.commands.movement.TurnAngle;
@@ -14,7 +18,14 @@ public class OI {
 	public OI() {
 		Controls.SHIFT_TO_HIGH_GEAR.whenPressed(new ShiftToHighGear());
 		Controls.SHIFT_TO_LOW_GEAR.whenPressed(new ShiftToLowGear());
-		new JoystickButton(Robot.driveStick, 1).whenPressed(new TurnAnglePID(90, 3));;
-		new JoystickButton(Robot.driveStick, 6).whenPressed(new TurnAngle(90));;
+		
+		Controls.INTAKE.whileHeld(new IntakeCube());
+		Controls.PURGE.whileHeld(new PurgeCube());
+		
+		Controls.RAISE_ELEVATOR.whileHeld(new RaiseElevator());
+		Controls.LOWER_ELEVATOR.whileHeld(new LowerElevator());
+		
+//		new JoystickButton(Robot.driveStick, 1).whenPressed(new TurnAnglePID(90, 3));;
+//		new JoystickButton(Robot.driveStick, 6).whenPressed(new TurnAngle(90));;
 	}
 }

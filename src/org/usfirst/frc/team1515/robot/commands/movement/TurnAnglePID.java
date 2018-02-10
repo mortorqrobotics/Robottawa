@@ -10,12 +10,14 @@ public class TurnAnglePID extends Command {
 	PIDController pidController;
 
 	static final double K_P = 0.007;
-	static final double K_I = 0.000000000000001;
+	static final double K_I = 0.0000000001;
 	static final double K_D = 0.0;
+	
+	static final double THRESHOLD = 1;
 
 	double startAngle;
 	double target;
-
+	
 	public TurnAnglePID(double target, double timeout) {
 		requires(Robot.driveTrain);
 		this.target = target;
@@ -34,8 +36,10 @@ public class TurnAnglePID extends Command {
 		double output = pidController.getOutput(target, measuredAngle);
 		Robot.driveTrain.setSpeeds(output, -output);
 		pidController.printToSmartDashboard("angle");
-
-		return isTimedOut();
+		
+		return (Math.abs(measuredAngle) >= Math.abs(target - THRESHOLD)
+    			&& Math.abs(measuredAngle) <= Math.abs(target + THRESHOLD))
+				|| isTimedOut();
 	}
 
 	@Override

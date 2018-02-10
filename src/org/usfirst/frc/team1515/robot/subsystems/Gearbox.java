@@ -38,7 +38,7 @@ public class Gearbox extends Subsystem {
 		
 		pidController = new PIDController(K_P, K_I, K_D, 0.9);
 	}
-	
+
 	public void setSpeedPID(double target) {
 		double measuredSpeed = getEncoderRate() / (Robot.driveTrain.isHighGear ? MAX_ENCODER_RATE_HIGH : MAX_ENCODER_RATE_LOW);
 		double output = pidController.getOutput(target, measuredSpeed);
