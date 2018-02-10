@@ -33,11 +33,10 @@ public class PIDController {
 		error = target - actual;
 		
 		p_term = error * K_P;
-		
-		errorSum += error;
+		errorSum += error /** timeDifference * DIMINISHER*/;
 		i_term = errorSum * K_I;
 		
-		d_term = (error - lastError);
+		d_term = (error - lastError)/* / timeDifference */; 
 		d_term *= K_D;
 		
 		lastError = error;

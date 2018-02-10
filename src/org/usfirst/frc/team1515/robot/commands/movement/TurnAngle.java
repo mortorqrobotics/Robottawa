@@ -23,8 +23,9 @@ public class TurnAngle extends Command {
 
     protected boolean isFinished() {
     	Robot.driveTrain.setSpeeds(SPEED, -SPEED);
-    	return (Robot.gyro.getAngle() - startAngle) > (target - THRESHOLD)
-    			&& (Robot.gyro.getAngle() - startAngle) < (target + THRESHOLD);
+    	double angle = Robot.gyro.getAngle() - startAngle;
+    	return Math.abs(angle) >= Math.abs(target - THRESHOLD)
+    			&& Math.abs(angle) <= Math.abs(target + THRESHOLD);
     }
 
     protected void end() {

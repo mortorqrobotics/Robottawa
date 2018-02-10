@@ -2,7 +2,7 @@ package org.usfirst.frc.team1515.robot.commands.auto;
 
 import org.usfirst.frc.team1515.robot.commands.movement.DriveForward;
 import org.usfirst.frc.team1515.robot.commands.movement.TurnAnglePID;
-import org.usfirst.frc.team1515.robot.util.Direction;
+import org.usfirst.frc.team1515.robot.util.Position;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -17,9 +17,9 @@ public class SideSwitchAuto extends CommandGroup {
 	static final double ANGLE = 90;
 	static final double ANGLE_TIMEOUT = 3;
 
-	public SideSwitchAuto(Direction platePosition) {
-		addSequential(new DriveForward(FORWARD_DIST_TICKS, FORWARD_DIST_SPEED));
-		addSequential(new TurnAnglePID(platePosition == Direction.LEFT ? ANGLE : -ANGLE, ANGLE_TIMEOUT));
-		addSequential(new DriveForward(SIDE_DIST_TICKS, SIDE_DIST_SPEED));
+	public SideSwitchAuto(Position platePosition) {
+		addSequential(new DriveForward(FORWARD_DIST, FORWARD_DIST_SPEED));
+		addSequential(new TurnAnglePID(platePosition == Position.LEFT ? ANGLE : -ANGLE, ANGLE_TIMEOUT));
+		addSequential(new DriveForward(SIDE_DIST, SIDE_DIST_SPEED));
     }
 }
