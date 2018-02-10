@@ -15,22 +15,28 @@ public class DriveForward extends Command {
 		this.speed = speed;
     }
 
+    // Called just before this Command runs the first time
     protected void initialize() {
 		Robot.driveTrain.resetEncoders();
     }
 
+    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 		Robot.driveTrain.setSpeed(speed);
     }
 
+    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return ticks == Math.abs((Robot.driveTrain.getLeftEncoderTicks() + Robot.driveTrain.getRightEncoderTicks()) / 2);
+        return ticks == Math.abs((Robot.driveTrain.getLeftEncoder().getRate() + Robot.driveTrain.getRightEncoder().getRate()) / 2);
     }
 
+    // Called once after isFinished returns true
     protected void end() {
 		Robot.driveTrain.stop();
     }
 
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
     protected void interrupted() {
 		end();
     }

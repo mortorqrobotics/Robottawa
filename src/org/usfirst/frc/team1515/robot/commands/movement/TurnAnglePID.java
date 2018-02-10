@@ -9,8 +9,8 @@ public class TurnAnglePID extends Command {
 
 	PIDController pidController;
 
-	static final double K_P = 0.007;
-	static final double K_I = 0.000000000000001;
+	static final double K_P = 0.01;
+	static final double K_I = 0.0001;
 	static final double K_D = 0.0;
 
 	double startAngle;

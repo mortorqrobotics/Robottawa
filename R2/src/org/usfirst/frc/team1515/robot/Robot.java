@@ -1,19 +1,16 @@
 
 package org.usfirst.frc.team1515.robot;
 
-import org.usfirst.frc.team1515.robot.commands.movement.TurnAnglePID;
-import org.usfirst.frc.team1515.robot.RobotInfo;
 import org.usfirst.frc.team1515.robot.subsystems.CakeDrive;
+import org.usfirst.frc.team1515.robot.util.RobotInfo;
 
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
@@ -22,11 +19,10 @@ public class Robot extends IterativeRobot {
 	public static CakeDrive driveTrain;
 	public static Joystick driveStick;
 	public static PowerDistributionPanel pdp;
-	public static Gyro gyro;
-	public static RobotInfo info;
 	
 	public static DriverStation driverStation;
 	public static SmartDashboard smartDashboard;
+	public static RobotInfo info;
 
 	@Override
 	public void robotInit() {
@@ -36,8 +32,7 @@ public class Robot extends IterativeRobot {
 		);
 		driveStick = new Joystick(Controls.DRIVE_STICK);
 		pdp = new PowerDistributionPanel(RobotMap.PDP);
-		gyro = new ADXRS450_Gyro();
-		info = new RobotInfo(RobotMap.startPosition.getX(), RobotMap.startPosition.getY(), RobotMap.startPosition.getAngle());
+		this.info=new RobotInfo(RobotMap.startX, RobotMap.starty, RobotMap.startAngle);
 		// OI needs to be initialized last or else commands will not work!
 		oi = new OI();
 		UsbCamera cam0 = CameraServer.getInstance().startAutomaticCapture();
@@ -70,6 +65,9 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
+//		smartDashboard.putNumber("encoder", driveTrain.getLeftEncoder());
+//		smartDashboard.putNumber("current", pdp.getCurrent(0));
+//		System.out.println(pdp.getCurrent(0));
 		Scheduler.getInstance().run();
 	}
 
