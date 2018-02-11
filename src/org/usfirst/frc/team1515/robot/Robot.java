@@ -1,9 +1,9 @@
 
 package org.usfirst.frc.team1515.robot;
 
-import org.usfirst.frc.team1515.robot.commands.auto.CenterSwitchAuto;
-import org.usfirst.frc.team1515.robot.commands.auto.CrossBaselineAuto;
-import org.usfirst.frc.team1515.robot.commands.auto.SideSwitchAuto;
+import org.usfirst.frc.team1515.robot.commands.auto.CenterAuto;
+import org.usfirst.frc.team1515.robot.commands.auto.LeftAuto;
+import org.usfirst.frc.team1515.robot.commands.auto.RightAuto;
 import org.usfirst.frc.team1515.robot.subsystems.CakeDrive;
 import org.usfirst.frc.team1515.robot.subsystems.Elevator;
 import org.usfirst.frc.team1515.robot.subsystems.Intake;
@@ -19,8 +19,10 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
@@ -33,12 +35,14 @@ public class Robot extends IterativeRobot {
 	public static Gyro gyro;
 	public static Elevator elevator;
 	public static Intake intake;
-	
-	public static DriverStation driverStation;
-	public static SmartDashboard smartDashboard;
+
+	public static Command autonomousCommand;
+	public static Position alliancePlatePosition;
+	public static SendableChooser<Command> autoChooser;
 
 	@Override
 	public void robotInit() {
+
 		driveTrain = new CakeDrive(RobotMap.LEFT_MOTOR_PORTS, RobotMap.RIGHT_MOTOR_PORTS,
 			RobotMap.LEFT_ENCODER_PORTS, RobotMap.RIGHT_ENCODER_PORTS,
 			RobotMap.DRIVE_SOLENOID_CHANNELS
@@ -49,11 +53,18 @@ public class Robot extends IterativeRobot {
 		gyro = new ADXRS450_Gyro();
 		elevator = new Elevator(RobotMap.ELEVATOR_MOTOR_PORTS);
 		intake = new Intake(RobotMap.INTAKE_MOTOR_PORTS, RobotMap.INTAKE_SOLENOID_CHANNELS, RobotMap.LIMIT_SWITCH_PORT);
-		
-		// OI needs to be initialized last or else commands will not work!
-		oi = new OI();
+
 		UsbCamera cam0 = CameraServer.getInstance().startAutomaticCapture();
 		UsbCamera cam1 = CameraServer.getInstance().startAutomaticCapture();
+
+		autoChooser = new SendableChooser<Command>();
+		autoChooser.addObject("Left", new LeftAuto());
+		autoChooser.addObject("Center", new CenterAuto());
+		autoChooser.addObject("Right", new RightAuto());
+		SmartDashboard.putData("Start position", autoChooser);
+
+		// OI needs to be initialized last or else commands will not work!
+		oi = new OI();
 	}
 
 	@Override
@@ -66,41 +77,12 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 	}
 
-
 	@Override
 	public void autonomousInit() {
-		String startPositionString = smartDashboard.getString("start position", "L");
-		Position startPosition = Position.LEFT;
-		Point fieldStartPosition = FieldMap.START_LEFT;
-
-		switch (startPositionString) {
-		case "L":
-			startPosition = Position.LEFT;
-			fieldStartPosition = FieldMap.START_LEFT;
-			break;
-		case "C":
-			startPosition = Position.CENTER;
-			fieldStartPosition = FieldMap.START_CENTER;
-			break;
-		case "R":
-			startPosition = Position.RIGHT;
-			fieldStartPosition = FieldMap.START_RIGHT;
-			break;
-		}
-		PlaneUtil.setCurrentLoc(fieldStartPosition);
-
-		String data = driverStation.getGameSpecificMessage();
-		Position allianceSwitchPosition = data.substring(0, 1) == "L" ? Position.LEFT : Position.RIGHT;
-		Command autoCommand;
-
-		if (startPosition == allianceSwitchPosition) {
-			autoCommand = new SideSwitchAuto(allianceSwitchPosition);
-		} else if (startPosition == Position.CENTER) {
-			autoCommand = new CenterSwitchAuto(allianceSwitchPosition);
-		} else {
-			autoCommand = new CrossBaselineAuto(startPosition);
-		}
-		autoCommand.start();
+		autonomousCommand = (Command) autoChooser.getSelected();
+		String data = DriverStation.getInstance().getGameSpecificMessage();
+		alliancePlatePosition = data.substring(0, 1) == "L" ? Position.LEFT : Position.RIGHT;
+		autonomousCommand.start();
 	}
 
 	@Override

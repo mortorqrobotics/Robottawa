@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1515.robot.util;
 
-import org.usfirst.frc.team1515.robot.Robot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PIDController {
 	
@@ -78,17 +78,16 @@ public class PIDController {
 		 timeDifference = 20;
 	}
 	
-	@SuppressWarnings("static-access")
 	public void printToSmartDashboard(String identifier) {
-		Robot.smartDashboard.putNumber(identifier + " target", target);
-		Robot.smartDashboard.putNumber(identifier + " measured", actual);
-		Robot.smartDashboard.putNumber(identifier + " output", output);
-		Robot.smartDashboard.putNumber(identifier + " timeDifference", timeDifference);
-		
-		Robot.smartDashboard.putNumber(identifier + " error", error);
-		Robot.smartDashboard.putNumber(identifier + " p_term", p_term);
-		Robot.smartDashboard.putNumber(identifier + " i_term", i_term);
-		Robot.smartDashboard.putNumber(identifier + " d_term", d_term);
+		SmartDashboard.putNumber(identifier + " target", target);
+		SmartDashboard.putNumber(identifier + " measured", actual);
+		SmartDashboard.putNumber(identifier + " output", output);
+		SmartDashboard.putNumber(identifier + " timeDifference", timeDifference);
+	
+		SmartDashboard.putNumber(identifier + " error", error);
+		SmartDashboard.putNumber(identifier + " p_term", p_term);
+		SmartDashboard.putNumber(identifier + " i_term", i_term);
+		SmartDashboard.putNumber(identifier + " d_term", d_term);
 	}
 
 }

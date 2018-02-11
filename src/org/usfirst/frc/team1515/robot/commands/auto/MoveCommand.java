@@ -7,29 +7,31 @@ import org.usfirst.frc.team1515.robot.util.coordsystem.Point;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class MoveCommandGroup extends CommandGroup {
+public class MoveCommand extends CommandGroup {
 
 	final double SPEED = 0.5;
 	final Point DEST;
 	
-	public MoveCommandGroup(Point destination) { 
+	int toRotate;
+	int moveDist;
+	
+	public MoveCommand(Point destination) { 
 		this.DEST = destination;
 		
-		int moveDist = (int) Math.round(PlaneUtil.getAngle(DEST));	
+		toRotate = (int) Math.round(PlaneUtil.getAngle(DEST));
+		moveDist = (int) Math.round(PlaneUtil.getAngle(DEST));	
 		
+		if (toRotate > 0) {
+			this.addSequential(new TurnAnglePID(toRotate, SPEED));
+		}
+
 		this.addSequential(new DriveForward(moveDist, SPEED));
 	}
 
-	public MoveCommandGroup(Point destination, boolean endFacingForward) {
-		this.DEST = destination;
+	public MoveCommand(Point destination, boolean endFacingForward) {
+		this(destination);
 
-		int toRotate = (int) Math.round(PlaneUtil.getAngle(DEST));
-		int moveDist = (int) Math.round(PlaneUtil.getAngle(DEST));
-				
-		this.addSequential(new TurnAnglePID(toRotate, SPEED));
-		this.addSequential(new DriveForward(moveDist, SPEED));
-
-		if(endFacingForward) {
+		if (endFacingForward) {
 			this.addSequential(new TurnAnglePID(-toRotate, SPEED));
 		}
 
