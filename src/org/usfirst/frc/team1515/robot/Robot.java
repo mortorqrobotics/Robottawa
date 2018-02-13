@@ -37,8 +37,13 @@ public class Robot extends IterativeRobot {
 	public static Intake intake;
 
 	public static Command autonomousCommand;
-	public static Position alliancePlatePosition;
-	public static SendableChooser<Command> autoChooser;
+	public static Position startPosition;
+	public static Position switchPosition;
+	public static Position scalePosition;
+	public static boolean scaleHasPriority;
+
+	public static SendableChooser<Position> startPositionChooser;
+	public static SendableChooser<Boolean> priorityChooser;
 
 	@Override
 	public void robotInit() {
@@ -57,11 +62,17 @@ public class Robot extends IterativeRobot {
 		UsbCamera cam0 = CameraServer.getInstance().startAutomaticCapture();
 		UsbCamera cam1 = CameraServer.getInstance().startAutomaticCapture();
 
-		autoChooser = new SendableChooser<Command>();
-		autoChooser.addObject("Left", new LeftAuto());
-		autoChooser.addObject("Center", new CenterAuto());
-		autoChooser.addObject("Right", new RightAuto());
-		SmartDashboard.putData("Start position", autoChooser);
+		startPositionChooser = new SendableChooser<Position>();
+		startPositionChooser.addObject("Left", Position.LEFT);
+		startPositionChooser.addObject("Center", Position.CENTER);
+		startPositionChooser.addObject("Right", Position.RIGHT);
+		
+		priorityChooser = new SendableChooser<Boolean>();
+		priorityChooser.addObject("Scale", true);
+		priorityChooser.addObject("Switch", false);
+		
+		SmartDashboard.putData("Start position", startPositionChooser);
+		SmartDashboard.putData("Switch/Scale priority?", priorityChooser);
 
 		// OI needs to be initialized last or else commands will not work!
 		oi = new OI();
@@ -79,9 +90,24 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = (Command) autoChooser.getSelected();
 		String data = DriverStation.getInstance().getGameSpecificMessage();
-		alliancePlatePosition = data.substring(0, 1) == "L" ? Position.LEFT : Position.RIGHT;
+		switchPosition = data.substring(0, 1) == "L" ? Position.LEFT : Position.RIGHT;
+
+		startPosition = (Position) startPositionChooser.getSelected();
+		scaleHasPriority = (Boolean) priorityChooser.getSelected();
+		
+		switch (startPosition) {
+		case LEFT:
+			autonomousCommand = new LeftAuto();
+			break;
+		case CENTER:
+			autonomousCommand = new CenterAuto();
+			break;
+		case RIGHT:
+			autonomousCommand = new RightAuto();
+			break;
+		}
+
 		autonomousCommand.start();
 	}
 

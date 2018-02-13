@@ -7,22 +7,28 @@ public class FieldMap {
 	// start position
     public static final Point START_LEFT = new Point(62, 17);
     public static final Point START_RIGHT = new Point(298, 17);
-    public static final Point START_CENTER = new Point(182, 41);
+    public static final Point START_CENTER = new Point(182, 17);
+    
+    // offsets for turning
+    private static final int offsetDistance = 24;
+    public static final Point CENTER_OFFSET = new Point(START_CENTER.getX(), START_CENTER.getY() + offsetDistance);
+    
+	// left
+    public static final Point LEFT_BASELINE = new Point(62, 168);
+    public static final Point LEFT_SWITCH = new Point(70, 168);
+    public static final Point LEFT_SCALE = new Point(56, 324); 
 
-	// left to switch
-    public static final Point FIRST_LEFT = new Point(62, 168);
-    public static final Point SECOND_LEFT = new Point(70, 168);
-
-	// right to switch
-    public static final Point FIRST_RIGHT = new Point(298, 168);
-    public static final Point SECOND_RIGHT = new Point(290, 168);
+	// right
+    public static final Point RIGHT_BASELINE = new Point(298, 168);
+    public static final Point RIGHT_SWITCH = new Point(290, 168);
+    public static final Point RIGHT_SCALE = new Point(304, 324); 
 
 	// center to left switch
-    public static final Point FIRST_CENTER_LEFT = new Point(101, 98);
-    public static final Point SECOND_CENTER_LEFT = new Point(101, 50);
+    public static final Point CENTER_LEFT_MIDPOINT = new Point(101, 50);
+    public static final Point CENTER_LEFT_SWITCH = new Point(101, 98);
 
 	// center to right switch
-    public static final Point FIRST_CENTER_RIGHT = new Point(260, 98);
-    public static final Point SECOND_CENTER_RIGHT = new Point(260, 50);
+    public static final Point CENTER_RIGHT_MIDPOINT = new Point(260, 50);
+    public static final Point CENTER_RIGHT_SWITCH = new Point(260, 98);
 
 }
