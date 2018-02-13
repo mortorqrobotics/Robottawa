@@ -19,7 +19,7 @@ public class MoveCommand extends CommandGroup {
 		this.DEST = destination;
 		
 		toRotate = (int) Math.round(PlaneUtil.getAngle(DEST));
-		moveDist = (int) Math.round(PlaneUtil.getAngle(DEST));	
+		moveDist = (int) Math.round(PlaneUtil.getDistance(DEST));	
 		
 		if (toRotate > 0) {
 			this.addSequential(new TurnAnglePID(toRotate, SPEED));
