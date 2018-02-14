@@ -18,21 +18,23 @@ public class MoveCommand extends CommandGroup {
 	public MoveCommand(Point destination) { 
 		this.DEST = destination;
 		
-		toRotate = (int) Math.round(PlaneUtil.getAngle(DEST));
-		moveDist = (int) Math.round(PlaneUtil.getDistance(DEST));	
+		toRotate = PlaneUtil.getLeastAngle((int) Math.round(PlaneUtil.getAngle(DEST)) - PlaneUtil.getCurrentRotate());
+		moveDist = (int) Math.round(PlaneUtil.getDistance(DEST));
 		
 		if (toRotate > 0) {
 			this.addSequential(new TurnAnglePID(toRotate, SPEED));
 		}
 
 		this.addSequential(new DriveForward(moveDist, SPEED));
+		
+		PlaneUtil.changeRotate(toRotate);
 	}
 
 	public MoveCommand(Point destination, boolean endFacingForward) {
 		this(destination);
-
 		if (endFacingForward) {
-			this.addSequential(new TurnAnglePID(-toRotate, SPEED));
+			this.addSequential(new TurnAnglePID(-PlaneUtil.getCurrentRotate(), SPEED));
+			PlaneUtil.changeRotate(-PlaneUtil.getCurrentRotate());
 		}
 
 	}

@@ -25,6 +25,21 @@ public class PlaneUtil {
     }
     
     public static void changeRotate(int degrees) {
-    	currentRotate += degrees;
+    	currentRotate = getLeastAngle(currentRotate + degrees);
+    }
+    
+    public static int getCurrentRotate() {
+    	return currentRotate;
+    }
+    
+    public static Point getCurrentLocation() {
+    	return currentLoc;
+    }
+    
+    public static int getLeastAngle(int angle) {
+    	angle %= 360;
+    	if (angle > 180) return angle - 360;
+    	else if (angle <= -180) return angle + 360;
+    	return angle;
     }
 }
