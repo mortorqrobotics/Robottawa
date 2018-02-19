@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1515.robot.subsystems;
 
 import org.usfirst.frc.team1515.robot.Robot;
+import org.usfirst.frc.team1515.robot.RobotMap;
 import org.usfirst.frc.team1515.robot.Controls;
 import org.usfirst.frc.team1515.robot.commands.JoystickDrive;
 import org.usfirst.frc.team1515.robot.util.MotorModule;
@@ -25,7 +26,7 @@ public class CakeDrive extends Subsystem {
 	private static final double DEADBAND_TWIST = 0.05;
 
 	// change sign to change direction
-	final int factor = 1; 
+	final int factor = -1; 
 
 	public boolean isHighGear = false;
 	
@@ -36,7 +37,7 @@ public class CakeDrive extends Subsystem {
 		leftGearbox = new Gearbox(leftTalonPorts, leftEncoderPorts);
 		rightGearbox = new Gearbox(rightTalonPorts, rightEncoderPorts);
 		
-		solenoid = new DoubleSolenoid(solenoidChannel.first, solenoidChannel.last);
+		solenoid = new DoubleSolenoid(RobotMap.PCM, solenoidChannel.first, solenoidChannel.last);
 	}
 	
 	public void setSpeed(double speed) {
@@ -75,7 +76,7 @@ public class CakeDrive extends Subsystem {
 		turnSpeed = (1 + turnSpeed)/2;
 		throttle = (throttle - 1)/2;
 		forward *= throttle;
-		twist *= turnSpeed;
+		twist *= -turnSpeed;
 		
 		double y = Math.abs(forward);
 		double x = Math.abs(twist);
@@ -111,12 +112,12 @@ public class CakeDrive extends Subsystem {
 	}
 	
 	public void switchToHighGear() {
-		solenoid.set(Value.kForward);
+//		solenoid.set(Value.kForward);
 		isHighGear = true;
 	}
 
 	public void switchToLowGear() {
-		solenoid.set(Value.kReverse);
+//		solenoid.set(Value.kReverse);
 		isHighGear = false;
 	}
 

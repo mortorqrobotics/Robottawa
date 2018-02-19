@@ -56,8 +56,14 @@ public class Robot extends IterativeRobot {
 		manipStick = new Joystick(Controls.MANIPULATOR_STICK);
 //		pdp = new PowerDistributionPanel(RobotMap.PDP);
 		gyro = new ADXRS450_Gyro();
-		elevator = new Elevator(RobotMap.ELEVATOR_MOTOR_PORTS);
-		intake = new Intake(RobotMap.INTAKE_MOTOR_PORTS, RobotMap.INTAKE_SOLENOID_CHANNELS, RobotMap.LIMIT_SWITCH_PORT);
+		elevator = new Elevator(RobotMap.ELEVATOR_MOTOR_PORTS, 
+				RobotMap.LIMIT_SWITCH_PORT_ELEVATOR_TOP, 
+				RobotMap.LIMIT_SWITCH_PORT_ELEVATOR_BOTTOM
+		);
+		intake = new Intake(RobotMap.INTAKE_MOTOR_PORTS, 
+			RobotMap.INTAKE_GRAB_SOLENOID_CHANNELS, RobotMap.INTAKE_LIFT_SOLENOID_CHANNELS, 
+			RobotMap.LIMIT_SWITCH_PORT_INTAKE
+		);
 
 //		UsbCamera cam0 = CameraServer.getInstance().startAutomaticCapture();
 //		UsbCamera cam1 = CameraServer.getInstance().startAutomaticCapture();

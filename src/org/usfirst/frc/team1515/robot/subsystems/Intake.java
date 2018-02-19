@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1515.robot.subsystems;
 
+import org.usfirst.frc.team1515.robot.RobotMap;
 import org.usfirst.frc.team1515.robot.util.MotorModule;
 import org.usfirst.frc.team1515.robot.util.Pair;
 
@@ -11,23 +12,33 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Intake extends Subsystem {
 
 	MotorModule motors;
-	DoubleSolenoid solenoid;
+	DoubleSolenoid grabSolenoid;
+	DoubleSolenoid liftSolenoid;
 	DigitalInput limitSwitch;
 	
 	private static final double SPEED = 1;
 	
-	public Intake(int[] talonPorts, Pair<Integer> solenoidChannel, int limitSwitchPort) {
+	public Intake(int[] talonPorts, Pair<Integer> grabSolenoidChannels, Pair<Integer> liftSolenoidChannels, int limitSwitchPort) {
 		motors = new MotorModule(talonPorts);
-		solenoid = new DoubleSolenoid(solenoidChannel.first, solenoidChannel.last);
+		grabSolenoid = new DoubleSolenoid(RobotMap.PCM, grabSolenoidChannels.first, grabSolenoidChannels.last);
+		liftSolenoid = new DoubleSolenoid(RobotMap.PCM, liftSolenoidChannels.first, liftSolenoidChannels.last);
 		limitSwitch = new DigitalInput(limitSwitchPort);
 	}
 	
 	public void open() {
-		solenoid.set(Value.kForward);
+		grabSolenoid.set(Value.kForward);
 	}
 	
 	public void close() {
-		solenoid.set(Value.kReverse);
+		grabSolenoid.set(Value.kReverse);
+	}
+	
+	public void lock() {
+		liftSolenoid.set(Value.kForward);
+	}
+	
+	public void release() {
+		liftSolenoid.set(Value.kReverse);
 	}
 	
 	public void intake() {

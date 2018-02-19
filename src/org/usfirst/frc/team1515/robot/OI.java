@@ -1,9 +1,13 @@
 package org.usfirst.frc.team1515.robot;
 
+import org.usfirst.frc.team1515.robot.commands.CloseIntake;
 import org.usfirst.frc.team1515.robot.commands.IntakeCube;
+import org.usfirst.frc.team1515.robot.commands.LockIntake;
 import org.usfirst.frc.team1515.robot.commands.LowerElevator;
+import org.usfirst.frc.team1515.robot.commands.OpenIntake;
 import org.usfirst.frc.team1515.robot.commands.PurgeCube;
 import org.usfirst.frc.team1515.robot.commands.RaiseElevator;
+import org.usfirst.frc.team1515.robot.commands.ReleaseIntake;
 import org.usfirst.frc.team1515.robot.commands.ShiftToHighGear;
 import org.usfirst.frc.team1515.robot.commands.ShiftToLowGear;
 import org.usfirst.frc.team1515.robot.commands.movement.TurnAngle;
@@ -18,6 +22,12 @@ public class OI {
 	public OI() {
 		Controls.SHIFT_TO_HIGH_GEAR.whenPressed(new ShiftToHighGear());
 		Controls.SHIFT_TO_LOW_GEAR.whenPressed(new ShiftToLowGear());
+		
+		Controls.TOGGLE_INTAKE.whenActive(new OpenIntake());
+		Controls.TOGGLE_INTAKE.whenInactive(new CloseIntake());
+		
+		Controls.LOCK_INTAKE.whenPressed(new LockIntake());
+		Controls.RELEASE_INTAKE.whenPressed(new ReleaseIntake());
 		
 		Controls.INTAKE.whileHeld(new IntakeCube());
 		Controls.PURGE.whileHeld(new PurgeCube());
