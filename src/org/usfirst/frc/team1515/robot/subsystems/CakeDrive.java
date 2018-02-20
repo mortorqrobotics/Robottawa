@@ -11,11 +11,12 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CakeDrive extends Subsystem {
 	
-	private Gearbox leftGearbox;
-	private Gearbox rightGearbox;
+	public Gearbox leftGearbox;
+	public Gearbox rightGearbox;
 	
 	private DoubleSolenoid solenoid;
 	
@@ -24,6 +25,8 @@ public class CakeDrive extends Subsystem {
 
 	private static final double DEADBAND_FORWARD = 0.15;
 	private static final double DEADBAND_TWIST = 0.05;
+	
+	private static double trim = 0.825;
 
 	// change sign to change direction
 	final int factor = -1; 
@@ -42,24 +45,30 @@ public class CakeDrive extends Subsystem {
 	
 	public void setSpeed(double speed) {
 		leftGearbox.setSpeed(speed * factor);
-		rightGearbox.setSpeed(-speed * factor);
+		rightGearbox.setSpeed(-speed * factor * trim);
 	}
 	
 	public void setSpeedPID(double speed) {
 		leftGearbox.setSpeedPID(speed * factor);
 		rightGearbox.setSpeedPID(-speed * factor);
+
+		leftGearbox.printToSmartDashboard("left");
+		rightGearbox.printToSmartDashboard("right");
 	}
 	
 	public void setSpeeds(double leftSpeed, double rightSpeed) {
 		leftGearbox.setSpeed(leftSpeed * factor);
-		rightGearbox.setSpeed(-rightSpeed * factor);
+		rightGearbox.setSpeed(-rightSpeed * factor * trim);
 	}
 
 	public void setSpeedsPID(double leftSpeed, double rightSpeed) {
 		leftGearbox.setSpeedPID(leftSpeed * factor);
 		rightGearbox.setSpeedPID(-rightSpeed * factor);
+		
+		leftGearbox.printToSmartDashboard("left");
+		rightGearbox.printToSmartDashboard("right");
 	}
-
+	
 	public void stop() {
 		setSpeed(0);
 	}
@@ -98,8 +107,6 @@ public class CakeDrive extends Subsystem {
 //		setSpeedsPID(left, right);
 		setSpeeds(left, right);
 		
-		leftGearbox.printToSmartDashboard("left");
-		rightGearbox.printToSmartDashboard("right");
 	}
 		
 	public double getDistance() {
@@ -112,12 +119,12 @@ public class CakeDrive extends Subsystem {
 	}
 	
 	public void switchToHighGear() {
-//		solenoid.set(Value.kForward);
+		solenoid.set(Value.kForward);
 		isHighGear = true;
 	}
 
 	public void switchToLowGear() {
-//		solenoid.set(Value.kReverse);
+		solenoid.set(Value.kReverse);
 		isHighGear = false;
 	}
 

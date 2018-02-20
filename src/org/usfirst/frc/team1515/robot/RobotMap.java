@@ -17,15 +17,15 @@ public class RobotMap {
 	public static final Pair<Integer> INTAKE_LIFT_SOLENOID_CHANNELS = new Pair<Integer>(0, 1);
 	public static final Pair<Integer> DRIVE_SOLENOID_CHANNELS = new Pair<Integer>(4, 5);
 	
-	public static final int LIMIT_SWITCH_PORT_INTAKE = 4;
-	public static final int LIMIT_SWITCH_PORT_ELEVATOR_TOP = 5;
+	public static final int LIMIT_SWITCH_PORT_INTAKE = 5;
+	public static final int LIMIT_SWITCH_PORT_ELEVATOR_TOP = 4;
 	public static final int LIMIT_SWITCH_PORT_ELEVATOR_BOTTOM = 6;
 
 	
 	public static final int PDP = 10;
 	public static final int PCM = 11;
 	
-	public static final int TICKS_PER_REV = 2880;
-	public static final double WHEEL_CIRCUMFERENCE = Math.PI * 6; //inches
+	public static final int TICKS_PER_REV = 2700;
+	public static final double WHEEL_CIRCUMFERENCE = Math.PI * 6.25; //inches
 
 }

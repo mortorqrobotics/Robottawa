@@ -62,7 +62,7 @@ public class Gearbox extends Subsystem {
 	}
 	
 	public double getDistance() {
-		return encoder.getDistance();
+		return Math.abs(encoder.getDistance());
 	}
 	
 	public void resetEncoder() {

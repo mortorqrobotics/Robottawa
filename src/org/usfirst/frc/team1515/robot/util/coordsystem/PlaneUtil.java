@@ -17,7 +17,8 @@ public class PlaneUtil {
             return (base > 0) ? 90 : -90;
 
         double temp =  Math.toDegrees(Math.atan2(height, base));
-        return (base < 0) ? temp - 180 : temp;
+        double output = (base < 0) ? temp - 180 : temp;
+        return output;
     }
     
     public static void setCurrentLoc(Point p) {
@@ -37,9 +38,6 @@ public class PlaneUtil {
     }
     
     public static int getLeastAngle(int angle) {
-    	angle %= 360;
-    	if (angle > 180) return angle - 360;
-    	else if (angle <= -180) return angle + 360;
     	return angle;
     }
 }

@@ -2,6 +2,9 @@ package org.usfirst.frc.team1515.robot.commands.auto;
 
 import org.usfirst.frc.team1515.robot.commands.auto.MoveCommand;
 import org.usfirst.frc.team1515.robot.commands.movement.DriveForward;
+
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import org.usfirst.frc.team1515.robot.FieldMap;
 import org.usfirst.frc.team1515.robot.Robot;
 import org.usfirst.frc.team1515.robot.commands.PurgeCube;

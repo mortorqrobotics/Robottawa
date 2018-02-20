@@ -11,7 +11,7 @@ public class Elevator extends Subsystem {
 	DigitalInput limitSwitchTop;
 	DigitalInput limitSwitchBottom;
 	
-	private static final double SPEED = 0.65;
+	private static final double SPEED = 0.35;
 	
 	public Elevator(int[] talonPorts, int limitSwitchPortTop, int limitSwitchPortBottom) {
 		motors = new MotorModule(talonPorts);
@@ -32,11 +32,11 @@ public class Elevator extends Subsystem {
 	}
 	
 	public boolean isLimitSwitchTopPressed() {
-		return limitSwitchTop.get();
+		return !limitSwitchTop.get();
 	}
 	
 	public boolean isLimitSwitchBottomPressed() {
-		return limitSwitchBottom.get();
+		return !limitSwitchBottom.get();
 	}
 
 

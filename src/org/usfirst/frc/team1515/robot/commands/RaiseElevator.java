@@ -5,9 +5,14 @@ import org.usfirst.frc.team1515.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class RaiseElevator extends Command {
-
+	
     public RaiseElevator() {
     	requires(Robot.elevator);
+    }
+    
+    public RaiseElevator(double timeout) {
+    	requires(Robot.driveTrain);
+    	setTimeout(timeout);
     }
 
     protected void execute() {
@@ -15,7 +20,7 @@ public class RaiseElevator extends Command {
     }
 
     protected boolean isFinished() {
-        return isTimedOut();
+        return isTimedOut() || Robot.elevator.isLimitSwitchTopPressed();
     }
 
     protected void end() {

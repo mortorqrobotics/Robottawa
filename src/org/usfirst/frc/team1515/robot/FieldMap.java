@@ -11,7 +11,7 @@ public class FieldMap {
     
     // offsets for turning
     private static final int offsetDistance = 24;
-    public static final Point CENTER_OFFSET = new Point(START_CENTER.getX(), START_CENTER.getY() + offsetDistance);
+    public static final Point CENTER_OFFSET = new Point(182, 41);
     
 	// left
     public static final Point LEFT_BASELINE = new Point(62, 168);

@@ -26,6 +26,8 @@ public class TurnAnglePID extends Command {
 
 	@Override
 	protected void initialize() {
+		System.out.println("turnAngle");
+		System.out.println(target);
 		startAngle = Robot.gyro.getAngle();
 		pidController = new PIDController(K_P, K_I, K_D);
 	}

@@ -23,8 +23,8 @@ public class OI {
 		Controls.SHIFT_TO_HIGH_GEAR.whenPressed(new ShiftToHighGear());
 		Controls.SHIFT_TO_LOW_GEAR.whenPressed(new ShiftToLowGear());
 		
-		Controls.TOGGLE_INTAKE.whenActive(new OpenIntake());
-		Controls.TOGGLE_INTAKE.whenInactive(new CloseIntake());
+//		Controls.TOGGLE_INTAKE.whenActive(new OpenIntake());
+//		Controls.TOGGLE_INTAKE.whenInactive(new CloseIntake());
 		
 		Controls.LOCK_INTAKE.whenPressed(new LockIntake());
 		Controls.RELEASE_INTAKE.whenPressed(new ReleaseIntake());

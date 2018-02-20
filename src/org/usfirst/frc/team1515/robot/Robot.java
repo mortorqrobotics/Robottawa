@@ -1,9 +1,13 @@
 
 package org.usfirst.frc.team1515.robot;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import org.usfirst.frc.team1515.robot.commands.auto.CenterAuto;
 import org.usfirst.frc.team1515.robot.commands.auto.LeftAuto;
 import org.usfirst.frc.team1515.robot.commands.auto.RightAuto;
+import org.usfirst.frc.team1515.robot.commands.movement.DriveForward;
+import org.usfirst.frc.team1515.robot.commands.movement.TurnAnglePID;
 import org.usfirst.frc.team1515.robot.subsystems.CakeDrive;
 import org.usfirst.frc.team1515.robot.subsystems.Elevator;
 import org.usfirst.frc.team1515.robot.subsystems.Intake;
@@ -102,6 +106,7 @@ public class Robot extends IterativeRobot {
 
 		startPosition = (Position) startPositionChooser.getSelected();
 		scaleHasPriority = priorityChooser.getSelected();
+		scaleHasPriority = false;
 		
 		
 		switch (startPosition) {
@@ -119,6 +124,7 @@ public class Robot extends IterativeRobot {
 		autonomousCommand.start();
 	}
 
+
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
@@ -130,6 +136,10 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("encoderticksLeft", driveTrain.leftGearbox.getEncoderTicks());
+		SmartDashboard.putNumber("encoderticksRight", driveTrain.rightGearbox.getEncoderTicks());
+		SmartDashboard.putNumber("encoderDistLeft", driveTrain.leftGearbox.getDistance());
+		SmartDashboard.putNumber("encoderDistRight", driveTrain.rightGearbox.getDistance());
 		Scheduler.getInstance().run();
 	}
 
