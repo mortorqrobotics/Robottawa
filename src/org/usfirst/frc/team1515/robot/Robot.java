@@ -11,7 +11,6 @@ import org.usfirst.frc.team1515.robot.commands.movement.TurnAnglePID;
 import org.usfirst.frc.team1515.robot.subsystems.CakeDrive;
 import org.usfirst.frc.team1515.robot.subsystems.Elevator;
 import org.usfirst.frc.team1515.robot.subsystems.Intake;
-import org.usfirst.frc.team1515.robot.util.Position;
 import org.usfirst.frc.team1515.robot.util.coordsystem.Point;
 import org.usfirst.frc.team1515.robot.util.coordsystem.PlaneUtil;
 
@@ -28,6 +27,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team1515.robot.util.Position;
 
 public class Robot extends IterativeRobot {
 

@@ -6,10 +6,10 @@ import org.usfirst.frc.team1515.robot.commands.PurgeCube;
 import org.usfirst.frc.team1515.robot.commands.RaiseElevator;
 import org.usfirst.frc.team1515.robot.commands.auto.MoveCommand;
 import org.usfirst.frc.team1515.robot.commands.movement.TurnAnglePID;
-import org.usfirst.frc.team1515.robot.util.Position;
 import org.usfirst.frc.team1515.robot.util.coordsystem.PlaneUtil;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import org.usfirst.frc.team1515.robot.util.Position;
 
 public class LeftAuto extends CommandGroup {
 	

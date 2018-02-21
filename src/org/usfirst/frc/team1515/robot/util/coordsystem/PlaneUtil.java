@@ -11,13 +11,21 @@ public class PlaneUtil {
         double base = a.getX() - currentLoc.getX();
         double height = a.getY() - currentLoc.getY();
 
-        if (base == 0)
-            return 0;
-        if (height == 0)
-            return (base > 0) ? 90 : -90;
-
         double temp =  Math.toDegrees(Math.atan2(height, base));
-        double output = (base < 0) ? temp - 180 : temp;
+        double output = (base < 0) ? (-1 * (temp - 90)) : (90 - temp);
+        
+        if (base == 0 && height > 0) {
+        	double toReturn = currentRotate;
+        	currentRotate = 0;
+        	return -1 * toReturn;
+        }
+        
+        if (height == 0) {
+        	return 90 * (base / Math.abs(base));
+        }
+
+        currentRotate += output;
+        System.out.println("angle: " + output);
         return output;
     }
     

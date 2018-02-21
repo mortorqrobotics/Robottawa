@@ -6,10 +6,10 @@ import org.usfirst.frc.team1515.robot.FieldMap;
 import org.usfirst.frc.team1515.robot.Robot;
 import org.usfirst.frc.team1515.robot.commands.PurgeCube;
 import org.usfirst.frc.team1515.robot.commands.RaiseElevator;
-import org.usfirst.frc.team1515.robot.util.Position;
 import org.usfirst.frc.team1515.robot.util.coordsystem.PlaneUtil;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import org.usfirst.frc.team1515.robot.util.Position;
 
 public class RightAuto extends CommandGroup {
 	
@@ -21,7 +21,7 @@ public class RightAuto extends CommandGroup {
 		System.out.println("right");
 
 		addSequential(new MoveCommand(FieldMap.RIGHT_BASELINE));
-		addParallel(new RaiseElevator(ELEVATOR_SWITCH_TIME));
+//		addParallel(new RaiseElevator(ELEVATOR_SWITCH_TIME));
 
 		boolean canScoreInSwitch = Robot.switchPosition == Position.RIGHT;
 		boolean canScoreInScale = Robot.scalePosition == Position.RIGHT;

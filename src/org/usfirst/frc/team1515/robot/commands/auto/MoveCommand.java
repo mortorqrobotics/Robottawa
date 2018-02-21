@@ -32,7 +32,7 @@ public class MoveCommand extends CommandGroup {
 		this.addSequential(new DriveForward(moveDist, SPEED));
 		this.addSequential(new Delay(DELAY));
 		
-		PlaneUtil.changeRotate(toRotate);
+//		PlaneUtil.changeRotate(toRotate);
 		PlaneUtil.setCurrentLoc(destination);
 		System.out.println("dest" + destination);
 	}
@@ -42,7 +42,7 @@ public class MoveCommand extends CommandGroup {
 		if (endFacingForward) {
 			this.addSequential(new TurnAnglePID(-PlaneUtil.getCurrentRotate(), TURN_TIMEOUT));
 			this.addSequential(new Delay(DELAY));
-			PlaneUtil.changeRotate(-PlaneUtil.getCurrentRotate());
+//			PlaneUtil.changeRotate(-PlaneUtil.getCurrentRotate());
 		}
 
 	}

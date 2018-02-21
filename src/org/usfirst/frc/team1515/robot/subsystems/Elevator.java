@@ -11,7 +11,7 @@ public class Elevator extends Subsystem {
 	DigitalInput limitSwitchTop;
 	DigitalInput limitSwitchBottom;
 	
-	private static final double SPEED = 0.35;
+	private static final double SPEED = .3;
 	
 	public Elevator(int[] talonPorts, int limitSwitchPortTop, int limitSwitchPortBottom) {
 		motors = new MotorModule(talonPorts);

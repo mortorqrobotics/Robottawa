@@ -25,7 +25,7 @@ public class DriveForward extends Command {
     }
 
     protected void execute() {
-		Robot.driveTrain.setSpeed(speed);
+		Robot.driveTrain.setSpeedPID(speed);
 		SmartDashboard.putNumber("distance", Robot.driveTrain.getDistance());
     }
 

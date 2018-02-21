@@ -8,10 +8,10 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
 import org.usfirst.frc.team1515.robot.FieldMap;
 import org.usfirst.frc.team1515.robot.Robot;
 import org.usfirst.frc.team1515.robot.commands.PurgeCube;
-import org.usfirst.frc.team1515.robot.util.Position;
 import org.usfirst.frc.team1515.robot.util.coordsystem.PlaneUtil;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import org.usfirst.frc.team1515.robot.util.Position;
 
 public class CenterAuto extends CommandGroup {
 	
@@ -32,12 +32,12 @@ public class CenterAuto extends CommandGroup {
 	}
 
 	private void goToLeftSwitch() {
-		addSequential(new MoveCommand(FieldMap.CENTER_LEFT_MIDPOINT, true));
+		addSequential(new MoveCommand(FieldMap.CENTER_LEFT_MIDPOINT, false));
 		addSequential(new MoveCommand(FieldMap.CENTER_LEFT_SWITCH));
 	}
 
 	private void goToRightSwitch() {
-		addSequential(new MoveCommand(FieldMap.CENTER_RIGHT_MIDPOINT, true));
+		addSequential(new MoveCommand(FieldMap.CENTER_RIGHT_MIDPOINT, false));
 		addSequential(new MoveCommand(FieldMap.CENTER_RIGHT_SWITCH));
 	}
 }

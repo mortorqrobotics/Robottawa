@@ -13,8 +13,8 @@ public class RobotMap {
 	public static final Pair<Integer> LEFT_ENCODER_PORTS = new Pair<Integer>(0, 1);
 	public static final Pair<Integer> RIGHT_ENCODER_PORTS = new Pair<Integer>(2, 3);
 
-	public static final Pair<Integer> INTAKE_GRAB_SOLENOID_CHANNELS = new Pair<Integer>(2, 3);
-	public static final Pair<Integer> INTAKE_LIFT_SOLENOID_CHANNELS = new Pair<Integer>(0, 1);
+	public static final Pair<Integer> INTAKE_GRAB_SOLENOID_CHANNELS = new Pair<Integer>(0, 1);
+	public static final Pair<Integer> INTAKE_LIFT_SOLENOID_CHANNELS = new Pair<Integer>(2, 3);
 	public static final Pair<Integer> DRIVE_SOLENOID_CHANNELS = new Pair<Integer>(4, 5);
 	
 	public static final int LIMIT_SWITCH_PORT_INTAKE = 5;

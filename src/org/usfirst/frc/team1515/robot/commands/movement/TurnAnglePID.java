@@ -4,6 +4,7 @@ import org.usfirst.frc.team1515.robot.Robot;
 import org.usfirst.frc.team1515.robot.util.PIDController;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TurnAnglePID extends Command {
 
@@ -28,6 +29,7 @@ public class TurnAnglePID extends Command {
 	protected void initialize() {
 		System.out.println("turnAngle");
 		System.out.println(target);
+		SmartDashboard.putNumber("angle", target);
 		startAngle = Robot.gyro.getAngle();
 		pidController = new PIDController(K_P, K_I, K_D);
 	}
