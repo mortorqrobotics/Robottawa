@@ -12,7 +12,7 @@ public class MoveCommand extends CommandGroup {
 
 	final double SPEED = 0.5;
 	final double DELAY = 0.5;
-	final double TURN_TIMEOUT = 2;
+	final double TURN_TIMEOUT = 1;
 	final Point DEST;
 	
 	int toRotate;

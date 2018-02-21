@@ -10,6 +10,7 @@ import org.usfirst.frc.team1515.robot.commands.RaiseElevator;
 import org.usfirst.frc.team1515.robot.commands.ReleaseIntake;
 import org.usfirst.frc.team1515.robot.commands.ShiftToHighGear;
 import org.usfirst.frc.team1515.robot.commands.ShiftToLowGear;
+import org.usfirst.frc.team1515.robot.commands.TogglePID;
 import org.usfirst.frc.team1515.robot.commands.movement.TurnAngle;
 import org.usfirst.frc.team1515.robot.commands.movement.TurnAnglePID;
 
@@ -22,6 +23,7 @@ public class OI {
 	public OI() {
 		Controls.SHIFT_TO_HIGH_GEAR.whenPressed(new ShiftToHighGear());
 		Controls.SHIFT_TO_LOW_GEAR.whenPressed(new ShiftToLowGear());
+		Controls.TOGGLE_PID.whenPressed(new TogglePID());
 		
 //		Controls.TOGGLE_INTAKE.whenActive(new OpenIntake());
 //		Controls.TOGGLE_INTAKE.whenInactive(new CloseIntake());

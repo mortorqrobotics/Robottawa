@@ -32,6 +32,7 @@ public class CakeDrive extends Subsystem {
 	final int factor = -1; 
 
 	public boolean isHighGear = false;
+	public boolean isPID = true;
 	
 	public CakeDrive(int[] leftTalonPorts, int[] rightTalonPorts, 
 		Pair<Integer> leftEncoderPorts, Pair<Integer> rightEncoderPorts,
@@ -104,8 +105,12 @@ public class CakeDrive extends Subsystem {
 			left = right;
 			right = temp;
 		}
-//		setSpeedsPID(left, right);
-		setSpeeds(left, right);
+		
+		if (isPID) {
+			setSpeedsPID(left, right);
+		} else {
+			setSpeeds(left, right);
+		}
 		
 	}
 		
@@ -126,6 +131,10 @@ public class CakeDrive extends Subsystem {
 	public void switchToLowGear() {
 		solenoid.set(Value.kReverse);
 		isHighGear = false;
+	}
+	
+	public void togglePID() {
+		isPID = !isPID;
 	}
 
 	@Override
