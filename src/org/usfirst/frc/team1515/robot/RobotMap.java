@@ -24,5 +24,7 @@ public class RobotMap {
 	
 	public static final int TICKS_PER_REV = 2700;
 	public static final double WHEEL_CIRCUMFERENCE = Math.PI * 6.25; //inches
+	
+	public static final double CODE_CYCLES_PER_SECOND = 50;	
 
 }

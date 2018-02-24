@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1515.robot.subsystems;
 
+import org.usfirst.frc.team1515.robot.RobotMap;
 import org.usfirst.frc.team1515.robot.util.MotorModule;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -11,8 +12,10 @@ public class Elevator extends Subsystem {
 	DigitalInput limitSwitchTop;
 	DigitalInput limitSwitchBottom;
 	
-	private static final double INITIAL_SPEED = 0.3;
+	private static final double MIN_SPEED = 0.3;
 	private static final double MAX_SPEED = 0.7;
+	private static final double SPEED_INCREMENT = Math.pow((MAX_SPEED / MIN_SPEED), (1 / RobotMap.CODE_CYCLES_PER_SECOND));
+
 	private double speed;
 	
 	public Elevator(int[] talonPorts, int limitSwitchPortTop, int limitSwitchPortBottom) {
@@ -20,7 +23,7 @@ public class Elevator extends Subsystem {
 		limitSwitchTop = new DigitalInput(limitSwitchPortTop);
 		limitSwitchBottom = new DigitalInput(limitSwitchPortBottom);
 		
-		speed = INITIAL_SPEED;
+		setMinSpeed();
 	}
 	
 	public void raise() {
@@ -43,12 +46,18 @@ public class Elevator extends Subsystem {
 		return !limitSwitchBottom.get();
 	}
 	
-	public void setSpeed(double speed) {
-		this.speed = speed;
+	public void incrementSpeed() {
+		if (speed < MAX_SPEED) {
+			speed *= SPEED_INCREMENT;
+		}
 	}
 	
-	public void setInitialSpeed(double speed) {
-		this.speed = INITIAL_SPEED;
+	public void setMinSpeed() {
+		speed = MIN_SPEED;
+	}
+	
+	public void setMaxSpeed() {
+		speed = MAX_SPEED;
 	}
 
     public void initDefaultCommand() {

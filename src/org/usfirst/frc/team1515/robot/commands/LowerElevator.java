@@ -9,13 +9,17 @@ public class LowerElevator extends Command {
 	public LowerElevator() {
     	requires(Robot.elevator);
     }
+	
+	protected void initialize() {
+		Robot.elevator.setMaxSpeed();
+	}
 
     protected void execute() {
     	Robot.elevator.lower();
     }
 
     protected boolean isFinished() {
-        return isTimedOut() /*|| Robot.elevator.isLimitSwitchBottomPressed()*/;
+        return isTimedOut() || Robot.elevator.isLimitSwitchBottomPressed();
     }
 
     protected void end() {
