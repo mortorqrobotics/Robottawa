@@ -12,7 +12,7 @@ public class MoveCommand extends CommandGroup {
 
 	final double SPEED = 0.5;
 	final double DELAY = 0.5;
-	final double TURN_TIMEOUT = 1;
+	final double TURN_TIMEOUT = 1.5;
 	final Point DEST;
 	
 	int toRotate;
@@ -34,17 +34,6 @@ public class MoveCommand extends CommandGroup {
 		
 //		PlaneUtil.changeRotate(toRotate);
 		PlaneUtil.setCurrentLoc(destination);
-		System.out.println("dest" + destination);
-	}
-
-	public MoveCommand(Point destination, boolean endFacingForward) {
-		this(destination);
-		if (endFacingForward) {
-			this.addSequential(new TurnAnglePID(-PlaneUtil.getCurrentRotate(), TURN_TIMEOUT));
-			this.addSequential(new Delay(DELAY));
-//			PlaneUtil.changeRotate(-PlaneUtil.getCurrentRotate());
-		}
-
 	}
 
 	@Override

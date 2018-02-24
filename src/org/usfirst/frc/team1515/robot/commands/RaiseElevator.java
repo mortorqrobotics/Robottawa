@@ -14,7 +14,7 @@ public class RaiseElevator extends Command {
     }
     
     public RaiseElevator(double timeout) {
-    	requires(Robot.driveTrain);
+    	requires(Robot.elevator);
     	setTimeout(timeout);
     }
 

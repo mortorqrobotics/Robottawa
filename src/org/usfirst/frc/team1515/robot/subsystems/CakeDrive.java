@@ -52,9 +52,6 @@ public class CakeDrive extends Subsystem {
 	public void setSpeedPID(double speed) {
 		leftGearbox.setSpeedPID(speed * factor);
 		rightGearbox.setSpeedPID(-speed * factor);
-
-		leftGearbox.printToSmartDashboard("left");
-		rightGearbox.printToSmartDashboard("right");
 	}
 	
 	public void setSpeeds(double leftSpeed, double rightSpeed) {
@@ -65,9 +62,6 @@ public class CakeDrive extends Subsystem {
 	public void setSpeedsPID(double leftSpeed, double rightSpeed) {
 		leftGearbox.setSpeedPID(leftSpeed * factor);
 		rightGearbox.setSpeedPID(-rightSpeed * factor);
-		
-		leftGearbox.printToSmartDashboard("left");
-		rightGearbox.printToSmartDashboard("right");
 	}
 	
 	public void stop() {

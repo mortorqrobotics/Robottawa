@@ -12,33 +12,21 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Intake extends Subsystem {
 
 	MotorModule motors;
-	DoubleSolenoid grabSolenoid;
-	DoubleSolenoid liftSolenoid;
-	DigitalInput limitSwitch;
+	DoubleSolenoid solenoid;
 	
 	private static final double SPEED = 1;
 	
-	public Intake(int[] talonPorts, Pair<Integer> grabSolenoidChannels, Pair<Integer> liftSolenoidChannels, int limitSwitchPort) {
+	public Intake(int[] talonPorts, Pair<Integer> solenoidChannels) {
 		motors = new MotorModule(talonPorts);
-		grabSolenoid = new DoubleSolenoid(RobotMap.PCM, grabSolenoidChannels.first, grabSolenoidChannels.last);
-		liftSolenoid = new DoubleSolenoid(RobotMap.PCM, liftSolenoidChannels.first, liftSolenoidChannels.last);
-		limitSwitch = new DigitalInput(limitSwitchPort);
+		solenoid = new DoubleSolenoid(RobotMap.PCM, solenoidChannels.first, solenoidChannels.last);
 	}
 	
 	public void open() {
-		grabSolenoid.set(Value.kForward);
+		solenoid.set(Value.kForward);
 	}
 	
 	public void close() {
-		grabSolenoid.set(Value.kReverse);
-	}
-	
-	public void lock() {
-		liftSolenoid.set(Value.kForward);
-	}
-	
-	public void release() {
-		liftSolenoid.set(Value.kReverse);
+		solenoid.set(Value.kReverse);
 	}
 	
 	public void intake() {
@@ -51,10 +39,6 @@ public class Intake extends Subsystem {
 	
 	public void stop() {
 		motors.stop();
-	}
-	
-	public boolean isLimitSwitchPressed() {
-		return limitSwitch.get();
 	}
 
     public void initDefaultCommand() {

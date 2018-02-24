@@ -27,9 +27,7 @@ public class TurnAnglePID extends Command {
 
 	@Override
 	protected void initialize() {
-		System.out.println("turnAngle");
-		System.out.println(target);
-		SmartDashboard.putNumber("angle", target);
+		System.out.println("turning: " + target);
 		startAngle = Robot.gyro.getAngle();
 		pidController = new PIDController(K_P, K_I, K_D);
 	}
@@ -39,7 +37,6 @@ public class TurnAnglePID extends Command {
 		double measuredAngle = Robot.gyro.getAngle() - startAngle;
 		double output = pidController.getOutput(target, measuredAngle);
 		Robot.driveTrain.setSpeeds(output, -output);
-		pidController.printToSmartDashboard("angle");
 		
 		return (Math.abs(measuredAngle) >= Math.abs(target - THRESHOLD)
     			&& Math.abs(measuredAngle) <= Math.abs(target + THRESHOLD))

@@ -19,18 +19,16 @@ public class DriveForward extends Command {
     }
 
     protected void initialize() {
-    	System.out.println("drive forward");
-    	System.out.println(dist);
+    	System.out.println("driving forward: " + dist);
 		Robot.driveTrain.resetEncoders();
     }
 
     protected void execute() {
 		Robot.driveTrain.setSpeedPID(speed);
-		SmartDashboard.putNumber("distance", Robot.driveTrain.getDistance());
     }
 
 	protected boolean isFinished() {
-		return dist <= Robot.driveTrain.getDistance() + THRESHOLD;
+		return Robot.driveTrain.getDistance() + THRESHOLD >= dist;
 	}
 
     protected void end() {

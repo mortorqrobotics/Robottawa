@@ -19,7 +19,7 @@ public class IntakeCube extends Command {
     }
 
     protected boolean isFinished() {
-        return isTimedOut() || Robot.intake.isLimitSwitchPressed();
+        return isTimedOut();
     }
 
     protected void end() {
@@ -28,6 +28,5 @@ public class IntakeCube extends Command {
 
     protected void interrupted() {
     	end();
-	
     }
 }

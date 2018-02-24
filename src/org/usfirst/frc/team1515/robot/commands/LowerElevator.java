@@ -15,7 +15,7 @@ public class LowerElevator extends Command {
     }
 
     protected boolean isFinished() {
-        return isTimedOut();
+        return isTimedOut() /*|| Robot.elevator.isLimitSwitchBottomPressed()*/;
     }
 
     protected void end() {

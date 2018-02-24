@@ -1,18 +1,12 @@
 
 package org.usfirst.frc.team1515.robot;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import org.usfirst.frc.team1515.robot.commands.auto.CenterAuto;
 import org.usfirst.frc.team1515.robot.commands.auto.LeftAuto;
 import org.usfirst.frc.team1515.robot.commands.auto.RightAuto;
-import org.usfirst.frc.team1515.robot.commands.movement.DriveForward;
-import org.usfirst.frc.team1515.robot.commands.movement.TurnAnglePID;
 import org.usfirst.frc.team1515.robot.subsystems.CakeDrive;
 import org.usfirst.frc.team1515.robot.subsystems.Elevator;
 import org.usfirst.frc.team1515.robot.subsystems.Intake;
-import org.usfirst.frc.team1515.robot.util.coordsystem.Point;
-import org.usfirst.frc.team1515.robot.util.coordsystem.PlaneUtil;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -22,7 +16,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -58,16 +51,12 @@ public class Robot extends IterativeRobot {
 		);
 		driveStick = new Joystick(Controls.DRIVE_STICK);
 		manipStick = new Joystick(Controls.MANIPULATOR_STICK);
-//		pdp = new PowerDistributionPanel(RobotMap.PDP);
 		gyro = new ADXRS450_Gyro();
 		elevator = new Elevator(RobotMap.ELEVATOR_MOTOR_PORTS, 
 				RobotMap.LIMIT_SWITCH_PORT_ELEVATOR_TOP, 
 				RobotMap.LIMIT_SWITCH_PORT_ELEVATOR_BOTTOM
 		);
-		intake = new Intake(RobotMap.INTAKE_MOTOR_PORTS, 
-			RobotMap.INTAKE_GRAB_SOLENOID_CHANNELS, RobotMap.INTAKE_LIFT_SOLENOID_CHANNELS, 
-			RobotMap.LIMIT_SWITCH_PORT_INTAKE
-		);
+		intake = new Intake(RobotMap.INTAKE_MOTOR_PORTS, RobotMap.INTAKE_SOLENOID_CHANNELS);
 
 //		UsbCamera cam0 = CameraServer.getInstance().startAutomaticCapture();
 //		UsbCamera cam1 = CameraServer.getInstance().startAutomaticCapture();
@@ -136,10 +125,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		SmartDashboard.putNumber("encoderticksLeft", driveTrain.leftGearbox.getEncoderTicks());
-		SmartDashboard.putNumber("encoderticksRight", driveTrain.rightGearbox.getEncoderTicks());
-		SmartDashboard.putNumber("encoderDistLeft", driveTrain.leftGearbox.getDistance());
-		SmartDashboard.putNumber("encoderDistRight", driveTrain.rightGearbox.getDistance());
 		Scheduler.getInstance().run();
 	}
 

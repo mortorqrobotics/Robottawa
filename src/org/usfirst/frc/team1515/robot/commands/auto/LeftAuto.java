@@ -2,6 +2,7 @@ package org.usfirst.frc.team1515.robot.commands.auto;
 
 import org.usfirst.frc.team1515.robot.FieldMap;
 import org.usfirst.frc.team1515.robot.Robot;
+import org.usfirst.frc.team1515.robot.commands.CloseIntake;
 import org.usfirst.frc.team1515.robot.commands.PurgeCube;
 import org.usfirst.frc.team1515.robot.commands.RaiseElevator;
 import org.usfirst.frc.team1515.robot.commands.auto.MoveCommand;
@@ -9,6 +10,7 @@ import org.usfirst.frc.team1515.robot.commands.movement.TurnAnglePID;
 import org.usfirst.frc.team1515.robot.util.coordsystem.PlaneUtil;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+
 import org.usfirst.frc.team1515.robot.util.Position;
 
 public class LeftAuto extends CommandGroup {
@@ -17,8 +19,8 @@ public class LeftAuto extends CommandGroup {
 
 	public LeftAuto() {
 		PlaneUtil.setCurrentLoc(FieldMap.START_LEFT);
-		System.out.println("left");
 
+		addSequential(new CloseIntake());
 		addSequential(new MoveCommand(FieldMap.LEFT_BASELINE));
 		addParallel(new RaiseElevator(ELEVATOR_SWITCH_TIME));
 		
