@@ -10,10 +10,6 @@ public class IntakeCube extends Command {
     	requires(Robot.intake);
     }
 
-    protected void initialize() {
-    	Robot.intake.close();
-    }
-
     protected void execute() {
     	Robot.intake.intake();
     }

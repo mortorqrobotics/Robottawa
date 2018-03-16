@@ -14,7 +14,8 @@ public class Intake extends Subsystem {
 	MotorModule motors;
 	DoubleSolenoid solenoid;
 	
-	private static final double SPEED = 1;
+	private static final double SPEED = -0.5;
+	private boolean isOpen = true;
 	
 	public Intake(int[] talonPorts, Pair<Integer> solenoidChannels) {
 		motors = new MotorModule(talonPorts);
@@ -22,19 +23,29 @@ public class Intake extends Subsystem {
 	}
 	
 	public void open() {
-		solenoid.set(Value.kForward);
+		solenoid.set(Value.kReverse);
+		isOpen = true;
 	}
 	
 	public void close() {
-		solenoid.set(Value.kReverse);
+		solenoid.set(Value.kForward);
+		isOpen = false;
+	}
+	
+	public void toggle() {
+		if(isOpen) {
+			close();
+		} else {
+			open();
+		}
 	}
 	
 	public void intake() {
-		motors.setSpeed(SPEED);
+		motors.setAlternatingSpeed(SPEED);
 	}
 	
 	public void purge() {
-		motors.setSpeed(-SPEED);
+		motors.setAlternatingSpeed(-SPEED);
 	}
 	
 	public void stop() {

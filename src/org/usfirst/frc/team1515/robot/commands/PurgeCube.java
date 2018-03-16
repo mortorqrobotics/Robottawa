@@ -22,7 +22,6 @@ public class PurgeCube extends Command {
     }
 
     protected void end() {
-    	Robot.intake.open();
     	Robot.intake.stop();
     }
 

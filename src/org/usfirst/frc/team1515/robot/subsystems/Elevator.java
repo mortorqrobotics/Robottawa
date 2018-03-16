@@ -13,8 +13,9 @@ public class Elevator extends Subsystem {
 	DigitalInput limitSwitchBottom;
 	
 	private static final double MIN_SPEED = 0.3;
-	private static final double MAX_SPEED = 0.7;
-	private static final double SPEED_INCREMENT = Math.pow((MAX_SPEED / MIN_SPEED), (1 / RobotMap.CODE_CYCLES_PER_SECOND));
+	private static final double MAX_SPEED = 0.6;
+	private static final double DESIRED_RAMP_TIME = 4.0;
+	private static final double SPEED_INCREMENT = Math.pow((MAX_SPEED / MIN_SPEED), (1 / (RobotMap.CODE_CYCLES_PER_SECOND * DESIRED_RAMP_TIME)));
 
 	private double speed;
 	
@@ -23,9 +24,14 @@ public class Elevator extends Subsystem {
 		limitSwitchTop = new DigitalInput(limitSwitchPortTop);
 		limitSwitchBottom = new DigitalInput(limitSwitchPortBottom);
 		
+		
 		setMinSpeed();
 	}
-	
+	MotorModule test_motor = new MotorModule(RobotMap.TEST_MOTORS[0]);
+	public void test() {
+		test_motor.setSpeed(speed);
+	}
+
 	public void raise() {
 		motors.setSpeed(-speed);
 	}
@@ -49,6 +55,7 @@ public class Elevator extends Subsystem {
 	public void incrementSpeed() {
 		if (speed < MAX_SPEED) {
 			speed *= SPEED_INCREMENT;
+			System.out.println(speed);
 		}
 	}
 	

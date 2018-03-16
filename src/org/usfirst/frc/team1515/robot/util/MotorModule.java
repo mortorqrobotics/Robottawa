@@ -20,6 +20,16 @@ public class MotorModule {
 		}
 	}
 	
+	public void setAlternatingSpeed(double speed) {
+		for (int i = 0; i < talons.length;  i++) {
+			if(i % 2 == 0) {
+				talons[i].set(ControlMode.PercentOutput, speed);
+			} else {
+				talons[i].set(ControlMode.PercentOutput, -speed);
+			}
+		}
+	}
+	
 	public void stop() {
 		for (TalonSRX talon : talons) {
 			talon.set(ControlMode.PercentOutput, 0);
