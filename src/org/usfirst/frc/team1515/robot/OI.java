@@ -5,6 +5,7 @@ import org.usfirst.frc.team1515.robot.commands.IntakeCube;
 import org.usfirst.frc.team1515.robot.commands.LowerElevator;
 import org.usfirst.frc.team1515.robot.commands.OpenIntake;
 import org.usfirst.frc.team1515.robot.commands.PurgeCube;
+import org.usfirst.frc.team1515.robot.commands.PurgeExchange;
 import org.usfirst.frc.team1515.robot.commands.RaiseElevator;
 import org.usfirst.frc.team1515.robot.commands.ShiftToHighGear;
 import org.usfirst.frc.team1515.robot.commands.ShiftToLowGear;
@@ -20,6 +21,7 @@ public class OI {
 		
 		Controls.INTAKE.whileHeld(new IntakeCube());
 		Controls.PURGE.whileHeld(new PurgeCube());
+		Controls.PURGE_EXCHANGE.whileHeld(new PurgeExchange());
 		Controls.TOGGLE_INTAKE.whenPressed(new ToggleIntake());
 		
 		Controls.RAISE_ELEVATOR.whileHeld(new RaiseElevator());

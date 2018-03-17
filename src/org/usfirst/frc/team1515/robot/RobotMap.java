@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1515.robot;
+ package org.usfirst.frc.team1515.robot;
 
 import org.usfirst.frc.team1515.robot.util.Pair;
 
@@ -19,7 +19,7 @@ public class RobotMap {
 	public static final Pair<Integer> DRIVE_SOLENOID_CHANNELS = new Pair<Integer>(6, 7);
 	
 	public static final int LIMIT_SWITCH_PORT_ELEVATOR_TOP = 4;
-	public static final int LIMIT_SWITCH_PORT_ELEVATOR_BOTTOM = 6;
+	public static final int LIMIT_SWITCH_PORT_ELEVATOR_BOTTOM = 5;
 	
 	public static final int PDP = 10;
 	public static final int PCM = 11;

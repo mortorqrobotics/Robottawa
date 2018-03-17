@@ -4,19 +4,17 @@ import org.usfirst.frc.team1515.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakeCube extends Command {
-	
-    public IntakeCube() {
+public class PurgeExchange extends Command {
+
+    public PurgeExchange() {
     	requires(Robot.intake);
     }
-    
-    public IntakeCube(double timeout) {
-    	super();
-    	setTimeout(timeout);
+
+    protected void initialize() {
     }
 
     protected void execute() {
-    	Robot.intake.intake();
+    	Robot.intake.purgeExchange();
     }
 
     protected boolean isFinished() {

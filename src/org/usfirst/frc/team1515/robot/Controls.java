@@ -19,7 +19,8 @@ public class Controls {
 	public static final Button SHIFT_TO_LOW_GEAR = new JoystickButton(Robot.driveStick, 4);
 	public static final Button TOGGLE_PID = new JoystickButton(Robot.driveStick, 1);
 	
-	public static final Button INTAKE = new JoystickButton(Robot.manipStick, 5);
+	public static final Button INTAKE = new JoystickButton(Robot.manipStick, 2);
+	public static final Button PURGE_EXCHANGE = new JoystickButton(Robot.manipStick, 5);
 	public static final Button PURGE = new JoystickButton(Robot.manipStick, 3);
 	public static final Button TOGGLE_INTAKE = new JoystickButton(Robot.manipStick, 1);
 	

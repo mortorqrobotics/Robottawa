@@ -12,9 +12,9 @@ public class Elevator extends Subsystem {
 	DigitalInput limitSwitchTop;
 	DigitalInput limitSwitchBottom;
 	
-	private static final double MIN_SPEED = 0.3;
-	private static final double MAX_SPEED = 0.6;
-	private static final double DESIRED_RAMP_TIME = 4.0;
+	private static final double MIN_SPEED = 0.4;
+	private static final double MAX_SPEED = 0.875;
+	private static final double DESIRED_RAMP_TIME = 1;
 	private static final double SPEED_INCREMENT = Math.pow((MAX_SPEED / MIN_SPEED), (1 / (RobotMap.CODE_CYCLES_PER_SECOND * DESIRED_RAMP_TIME)));
 
 	private double speed;

@@ -14,8 +14,10 @@ public class Intake extends Subsystem {
 	MotorModule motors;
 	DoubleSolenoid solenoid;
 	
-	private static final double SPEED = -0.5;
-	private boolean isOpen = true;
+	private static final double SPEED = 0.7;
+	private static final double PURGE_SPEED = -0.4;
+	private static final double PURGE_SPEED_EXCHANGE = -0.8;
+	private boolean isOpen = false;
 	
 	public Intake(int[] talonPorts, Pair<Integer> solenoidChannels) {
 		motors = new MotorModule(talonPorts);
@@ -45,7 +47,11 @@ public class Intake extends Subsystem {
 	}
 	
 	public void purge() {
-		motors.setAlternatingSpeed(-SPEED);
+		motors.setAlternatingSpeed(PURGE_SPEED);
+	}
+	
+	public void purgeExchange() {
+		motors.setAlternatingSpeed(PURGE_SPEED_EXCHANGE);
 	}
 	
 	public void stop() {
@@ -55,4 +61,3 @@ public class Intake extends Subsystem {
     public void initDefaultCommand() {
     }
 }
-
