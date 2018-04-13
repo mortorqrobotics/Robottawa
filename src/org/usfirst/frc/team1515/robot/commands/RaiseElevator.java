@@ -1,8 +1,10 @@
 package org.usfirst.frc.team1515.robot.commands;
 
+import org.usfirst.frc.team1515.robot.Controls;
 import org.usfirst.frc.team1515.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RaiseElevator extends Command {
 	
@@ -25,7 +27,7 @@ public class RaiseElevator extends Command {
     }
 
     protected boolean isFinished() {
-        return isTimedOut() || Robot.elevator.isLimitSwitchTopPressed();
+        return isTimedOut() || (!Controls.ELEVATOR_OVERRIDE.get() && Robot.elevator.isLimitSwitchTopPressed());
     }
 
     protected void end() {

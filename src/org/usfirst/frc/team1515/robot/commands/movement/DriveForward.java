@@ -24,7 +24,7 @@ public class DriveForward extends Command {
     }
 
     protected void execute() {
-		Robot.driveTrain.setSpeedPID(speed);
+		Robot.driveTrain.setSpeed(speed);
     }
 
 	protected boolean isFinished() {

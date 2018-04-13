@@ -19,11 +19,25 @@ public class Controls {
 	public static final Button SHIFT_TO_LOW_GEAR = new JoystickButton(Robot.driveStick, 4);
 	public static final Button TOGGLE_PID = new JoystickButton(Robot.driveStick, 1);
 	
-	public static final Button INTAKE = new JoystickButton(Robot.manipStick, 2);
-	public static final Button PURGE_EXCHANGE = new JoystickButton(Robot.manipStick, 5);
-	public static final Button PURGE = new JoystickButton(Robot.manipStick, 3);
-	public static final Button TOGGLE_INTAKE = new JoystickButton(Robot.manipStick, 1);
+//	public static final Button INTAKE = new JoystickButton(Robot.manipStick, 2);
+//	public static final Button PURGE_EXCHANGE = new JoystickButton(Robot.manipStick, 5);
+//	public static final Button PURGE = new JoystickButton(Robot.manipStick, 3);
+//	public static final Button TOGGLE_INTAKE = new JoystickButton(Robot.manipStick, 1);
 	
-	public static final Button RAISE_ELEVATOR = new JoystickButton(Robot.manipStick, 6);
-	public static final Button LOWER_ELEVATOR = new JoystickButton(Robot.manipStick, 4);
+//	public static final Button RAISE_ELEVATOR = new JoystickButton(Robot.manipStick, 6);
+//	public static final Button LOWER_ELEVATOR = new JoystickButton(Robot.manipStick, 4);
+//	public static final Button CLIMB = new JoystickButton(Robot.manipStick, 11);
+	
+	public static final Button INTAKE = new JoystickButton(Robot.manipStick, 5);
+
+	public static final Button PURGE_EXCHANGE = new JoystickButton(Robot.manipStick, 1 );
+	public static final Button PURGE = new JoystickButton(Robot.manipStick, 4);
+	public static final Button TOGGLE_INTAKE = new JoystickButton(Robot.manipStick, 3);
+	
+	public static final Button RAISE_ELEVATOR = new JoystickButton(Robot.manipStick, 8);
+	public static final Button LOWER_ELEVATOR = new JoystickButton(Robot.manipStick, 7);
+	public static final Button CLIMB = new JoystickButton(Robot.manipStick, 0);
+	
+	public static final Button ELEVATOR_OVERRIDE = new JoystickButton(Robot.driveStick, 2);
+
 }

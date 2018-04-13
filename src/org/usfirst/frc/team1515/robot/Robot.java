@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team1515.robot;
 
+import org.usfirst.frc.team1515.robot.commands.PurgeCube;
+import org.usfirst.frc.team1515.robot.commands.PurgeExchange;
 import org.usfirst.frc.team1515.robot.commands.auto.CenterAuto;
 import org.usfirst.frc.team1515.robot.commands.auto.LeftAuto;
 import org.usfirst.frc.team1515.robot.commands.auto.RightAuto;
@@ -38,13 +40,14 @@ public class Robot extends IterativeRobot {
 	public static Position switchPosition;
 	public static Position scalePosition;
 	public static boolean scaleHasPriority;
+	public static int blah = 0; // ignore
 
 	public static SendableChooser<Position> startPositionChooser;
 	public static SendableChooser<Boolean> priorityChooser;
-
+	
 	@Override
 	public void robotInit() {
-
+		
 		driveTrain = new CakeDrive(RobotMap.LEFT_MOTOR_PORTS, RobotMap.RIGHT_MOTOR_PORTS,
 			RobotMap.LEFT_ENCODER_PORTS, RobotMap.RIGHT_ENCODER_PORTS,
 			RobotMap.DRIVE_SOLENOID_CHANNELS
@@ -58,20 +61,20 @@ public class Robot extends IterativeRobot {
 		);
 		intake = new Intake(RobotMap.INTAKE_MOTOR_PORTS, RobotMap.INTAKE_SOLENOID_CHANNELS);
 
-//		UsbCamera cam0 = CameraServer.getInstance().startAutomaticCapture();
+		UsbCamera cam0 = CameraServer.getInstance().startAutomaticCapture();
 //		UsbCamera cam1 = CameraServer.getInstance().startAutomaticCapture();
 
 		startPositionChooser = new SendableChooser<Position>();
-		startPositionChooser.addDefault("Left", Position.LEFT);
-		startPositionChooser.addObject("Center", Position.CENTER);
+		startPositionChooser.addObject("Left", Position.LEFT);
+		startPositionChooser.addDefault("Center", Position.CENTER);
 		startPositionChooser.addObject("Right", Position.RIGHT);
 		
-		priorityChooser = new SendableChooser<Boolean>();
-		priorityChooser.addDefault("Scale", true);
-		priorityChooser.addObject("Switch", false);
+//		priorityChooser = new SendableChooser<Boolean>();
+//		priorityChooser.addDefault("Scale", true);
+//		priorityChooser.addObject("Switch", false);
 
 		SmartDashboard.putData("Start position", startPositionChooser);
-		SmartDashboard.putData("Priority", priorityChooser);
+//		SmartDashboard.putData("Priority", priorityChooser);
 
 		// OI needs to be initialized last or else commands will not work!
 		oi = new OI();
@@ -94,9 +97,9 @@ public class Robot extends IterativeRobot {
 		scalePosition = data.substring(1, 2).equals("L") ? Position.LEFT : Position.RIGHT;
 
 		startPosition = (Position) startPositionChooser.getSelected();
-		scaleHasPriority = priorityChooser.getSelected();
+//		scaleHasPriority = priorityChooser.getSelected();
 		scaleHasPriority = false;
-		
+		startPosition = Position.LEFT;
 		
 		switch (startPosition) {
 		case LEFT:
@@ -117,6 +120,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("right encoder", driveTrain.rightGearbox.getDistance());
+		SmartDashboard.putNumber("left encoder", driveTrain.leftGearbox.getDistance());
+
 	}
 
 	@Override
@@ -126,6 +132,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		SmartDashboard.putNumber("right encoder", driveTrain.rightGearbox.getDistance());
+		SmartDashboard.putNumber("left encoder", driveTrain.leftGearbox.getDistance());
+		SmartDashboard.putNumber("gyro", gyro.getAngle());
 	}
 
 	@Override

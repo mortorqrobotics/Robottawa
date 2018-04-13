@@ -9,6 +9,11 @@ public class PurgeExchange extends Command {
     public PurgeExchange() {
     	requires(Robot.intake);
     }
+    
+    public PurgeExchange(double timeout) {
+    	super();
+    	setTimeout(timeout);
+    }
 
     protected void initialize() {
     }
