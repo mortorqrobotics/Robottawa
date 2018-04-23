@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1515.robot.commands.auto;
 
 import org.usfirst.frc.team1515.robot.commands.auto.MoveCommand;
+import org.usfirst.frc.team1515.robot.commands.movement.DriveForward;
 import org.usfirst.frc.team1515.robot.commands.movement.TurnAnglePID;
 import org.usfirst.frc.team1515.robot.FieldMap;
 import org.usfirst.frc.team1515.robot.Robot;
@@ -30,10 +31,21 @@ public class RightAuto extends CommandGroup {
 //		addSequential(new Delay(1));
 //		addSequential(new IntakeCube(1.5));
 //		addParallel(new RaiseElevator(ELEVATOR_SWITCH_TIME));
-		addSequential(new MoveCommand(FieldMap.RIGHT_BASELINE));
+//		addSequential(new MoveCommand(FieldMap.RIGHT_BASELINE));
+		addSequential(new DriveForward(95, 0.5));
 
 		boolean canScoreInSwitch = Robot.switchPosition == Position.RIGHT;
 		boolean canScoreInScale = false;
+		canScoreInSwitch = false;
+		
+		if (canScoreInSwitch) {
+			addSequential(new RaiseElevator(2));
+			addSequential(new TurnAnglePID(-90, 1.5));
+//			addSequential(new MoveCommand(FieldMap.RIGHT_SWITCH));
+			addSequential(new DriveForward(3, 0.25));
+			addSequential(new PurgeExchange());
+		}
+
 //
 //		if (canScoreInScale && (Robot.scaleHasPriority || !canScoreInSwitch)) {
 //			addSequential(new MoveCommand(FieldMap.RIGHT_SCALE));

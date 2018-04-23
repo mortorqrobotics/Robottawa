@@ -8,6 +8,7 @@ import org.usfirst.frc.team1515.robot.commands.OpenIntake;
 import org.usfirst.frc.team1515.robot.commands.PurgeCube;
 import org.usfirst.frc.team1515.robot.commands.PurgeExchange;
 import org.usfirst.frc.team1515.robot.commands.RaiseElevator;
+import org.usfirst.frc.team1515.robot.commands.ReverseDrivetrain;
 import org.usfirst.frc.team1515.robot.commands.ShiftToHighGear;
 import org.usfirst.frc.team1515.robot.commands.ShiftToLowGear;
 import org.usfirst.frc.team1515.robot.commands.ToggleIntake;
@@ -29,5 +30,7 @@ public class OI {
 		Controls.RAISE_ELEVATOR.whileHeld(new RaiseElevator());
 		Controls.LOWER_ELEVATOR.whileHeld(new LowerElevator());
 		Controls.CLIMB.whileHeld(new Climb());
+		
+		Controls.REVERSE_DRIVETRAIN.whenPressed(new ReverseDrivetrain());
 	}
 }

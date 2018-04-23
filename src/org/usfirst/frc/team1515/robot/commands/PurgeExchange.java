@@ -11,7 +11,7 @@ public class PurgeExchange extends Command {
     }
     
     public PurgeExchange(double timeout) {
-    	super();
+    	this();
     	setTimeout(timeout);
     }
 

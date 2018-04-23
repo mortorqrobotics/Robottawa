@@ -39,5 +39,7 @@ public class Controls {
 	public static final Button CLIMB = new JoystickButton(Robot.manipStick, 0);
 	
 	public static final Button ELEVATOR_OVERRIDE = new JoystickButton(Robot.driveStick, 2);
+	
+	public static final Button REVERSE_DRIVETRAIN = new JoystickButton(Robot.manipStick, 7);
 
 }

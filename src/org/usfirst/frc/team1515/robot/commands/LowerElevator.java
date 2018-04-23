@@ -11,6 +11,11 @@ public class LowerElevator extends Command {
     	requires(Robot.elevator);
     }
 	
+	public LowerElevator(double timeout) {
+		this();
+		setTimeout(timeout);
+	}
+	
 	protected void initialize() {
 		Robot.elevator.setMaxSpeedDown();
 	}

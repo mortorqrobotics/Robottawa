@@ -29,7 +29,7 @@ public class CakeDrive extends Subsystem {
 	private static double trim = 0.825;
 
 	// change sign to change direction
-	final int factor = -1; 
+	private int factor = -1; 
 
 	public boolean isHighGear = false;
 	public boolean isPID = true;
@@ -66,6 +66,10 @@ public class CakeDrive extends Subsystem {
 	
 	public void stop() {
 		setSpeed(0);
+	}
+	
+	public void reverse() {
+		factor *= 1;
 	}
 	
 	public void drive() {

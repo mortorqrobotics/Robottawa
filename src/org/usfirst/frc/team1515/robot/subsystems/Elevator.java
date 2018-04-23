@@ -20,6 +20,7 @@ public class Elevator extends Subsystem {
 	private static final double SPEED_INCREMENT = Math.pow((MAX_SPEED / MIN_SPEED), (1 / (RobotMap.CODE_CYCLES_PER_SECOND * DESIRED_RAMP_TIME)));
 
 	private double speed;
+	private int factor = 1;
 	
 	public Elevator(int[] talonPorts, int limitSwitchPortTop, int limitSwitchPortBottom) {
 		motors = new MotorModule(talonPorts);
@@ -34,11 +35,11 @@ public class Elevator extends Subsystem {
 	}
 
 	public void raise() {
-		motors.setSpeed(speed);
+		motors.setSpeed(-speed * factor);
 	}
 	
 	public void lower() {
-		motors.setSpeed(-speed);
+		motors.setSpeed(speed * factor);
 	}
 	
 	public void stop() {

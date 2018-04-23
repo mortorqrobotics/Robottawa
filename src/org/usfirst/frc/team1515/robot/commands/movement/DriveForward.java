@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveForward extends Command {
 
+
 	private static final double THRESHOLD = 1;
 
 	private double dist; // inches

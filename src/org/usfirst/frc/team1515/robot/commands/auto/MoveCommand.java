@@ -25,6 +25,7 @@ public class MoveCommand extends CommandGroup {
 		moveDist = (int) Math.round(PlaneUtil.getDistance(DEST));
 		
 		if (Math.abs(toRotate) > 0) {
+			System.out.println("torotate: " + toRotate);
 			this.addSequential(new TurnAnglePID(toRotate, TURN_TIMEOUT));
 			this.addSequential(new Delay(DELAY));
 		}

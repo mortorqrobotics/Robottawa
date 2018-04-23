@@ -33,14 +33,17 @@ public class LeftAuto extends CommandGroup {
 //		addSequential(new CloseIntake());
 //		addSequential(new Delay(1));
 //		addSequential(new IntakeCube(1.5));
-		addSequential(new DriveForward(95, 0.6));
-
+//		addSequential(new MoveCommand(FieldMap.LEFT_BASELINE));
+		addSequential(new DriveForward(95, 0.5));
 		
-		boolean canScoreInSwitch = Robot.switchPosition == Position.RIGHT;
+		boolean canScoreInSwitch = Robot.switchPosition == Position.LEFT;
 		boolean canScoreInScale = false;
+		canScoreInSwitch = false;
 		
 		if (canScoreInSwitch) {
-			addSequential(new RaiseElevator(3));
+			addSequential(new RaiseElevator(2));
+			addSequential(new TurnAnglePID(90, 1.5));
+//			addSequential(new MoveCommand(FieldMap.LEFT_SWITCH));
 			addSequential(new DriveForward(3, 0.25));
 			addSequential(new PurgeExchange());
 		}
